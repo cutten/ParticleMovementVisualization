@@ -5,8 +5,8 @@ import java.awt.*;
 public class PathLine {
 
 
-    private int x, y;
-    private int lineWidth, lineHeight;
+    private double x, y;
+    private double lineWidth, lineHeight;
     private Node node1;
     private Node node2;
     private int var;

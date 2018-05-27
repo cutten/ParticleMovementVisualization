@@ -1,44 +1,86 @@
 import javafx.scene.canvas.GraphicsContext;
 
-import java.awt.*;
-
 public class Node {
 
-    private int centerX, centerY;
-    private int radius;
+    private double centerX, centerY;
+    private double radius;
+    private int number;
+    private Node up, down, left, right;
 
-    public Node(int x, int y, int radius) {
+    public Node(double x, double y, double radius, int number) {
         this.centerX = x;
         this.centerY = y;
         this.radius = radius;
+        this.number = number;
+        this.up = null;
+        this.down = null;
+        this.left = null;
+        this.right = null;
+    }
+
+    public Node(double x, double y, double radius, int number, Node up, Node down, Node left, Node right) {
+        this.centerX = x;
+        this.centerY = y;
+        this.radius = radius;
+        this.number = number;
+        this.up = up;
+        this.down = down;
+        this.left = left;
+        this.right = right;
     }
 
     /*public boolean isConnected(Node p){
         return false;
 }*/
 
-    public int getCenterX() {
+    public double getCenterX() {
         return centerX;
     }
 
-    public void setCenterX(int centerX) {
-        this.centerX = centerX;
-    }
 
-    public int getCenterY() {
+    public double getCenterY() {
         return centerY;
     }
 
-    public void setCenterY(int centerY) {
-        this.centerY = centerY;
-    }
 
-    public int getRadius() {
+    public double getRadius() {
         return radius;
     }
 
-    public void setRadius(int radius) {
-        this.radius = radius;
+    public int getNumber() {
+        return number;
+    }
+
+    public Node getUp() {
+        return up;
+    }
+
+    public void setUp(Node up) {
+        this.up = up;
+    }
+
+    public Node getDown() {
+        return down;
+    }
+
+    public void setDown(Node down) {
+        this.down = down;
+    }
+
+    public Node getLeft() {
+        return left;
+    }
+
+    public void setLeft(Node left) {
+        this.left = left;
+    }
+
+    public Node getRight() {
+        return right;
+    }
+
+    public void setRight(Node right) {
+        this.right = right;
     }
 
     public void paint(GraphicsContext graphicsContext) {

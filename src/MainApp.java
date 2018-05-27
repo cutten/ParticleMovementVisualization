@@ -17,7 +17,7 @@ public class MainApp extends Application {
     private Parent panel1, panel2;
     private Scene primaryScene;
     private Scene secondaryScene;
-
+    private GraphCanvas graphCanvas;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -25,6 +25,13 @@ public class MainApp extends Application {
         createPrimaryStage(primaryStage);
         // Инициализация окна #2
         createSecondaryStage();
+
+        boolean[][] matr = new boolean[][]{{false, true, true, false},{true, false, false, true},{true, false, false, true},{false, true, true, false}};
+
+        GraphGenerator.generate(matr, graphCanvas);
+        graphCanvas.repaint();
+        graphCanvas.repaint();
+
 
 
         //javafx.scene.control.TableView tableView = (javafx.scene.control.TableView) panel2.lookup("#matrix");
@@ -46,10 +53,11 @@ public class MainApp extends Application {
     private void createPrimaryStage(Stage stage) throws IOException {
         panel1 = FXMLLoader.load(getClass().getResource("mainApp.fxml"));
         primaryScene = new Scene(panel1, 800, 530);
-        GraphCanvas graphCanvas = new GraphCanvas(panel1);
+        graphCanvas = new GraphCanvas(panel1);
         stage.getIcons().add(new Image("file:iconv2.png"));
         stage.setTitle("Визуализация движения частиц по регулярным сетям");
         stage.setScene(primaryScene);
+        //stage.setResizable(false);
         stage.show();
     }
 
@@ -60,6 +68,7 @@ public class MainApp extends Application {
         secondaryStage.getIcons().add(new Image("file:iconv2.png"));
         secondaryStage.setTitle("Матрица смежности");
         secondaryStage.setScene(secondaryScene);
+        //secondaryStage.setResizable(false);
     }
 
     public static void openSecondaryStage() {
