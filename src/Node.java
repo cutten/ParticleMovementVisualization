@@ -17,10 +17,6 @@ public class Node {
         return false;
 }*/
 
-    public void paint(GraphicsContext graphicsContext) {
-        graphicsContext.fillOval(centerX - radius, centerY - radius, radius * 2, radius * 2);
-    }
-
     public int getCenterX() {
         return centerX;
     }
@@ -44,5 +40,11 @@ public class Node {
     public void setRadius(int radius) {
         this.radius = radius;
     }
+
+    public void paint(GraphicsContext graphicsContext) {
+        graphicsContext.fillOval(centerX - radius, centerY - radius, radius * 2, radius * 2);
+    }
+
+
 }
 
