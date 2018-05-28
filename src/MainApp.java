@@ -13,6 +13,7 @@ public class MainApp extends Application {
 
     private static Stage secondaryStage;
     private static GraphCanvas graphCanvas;
+    private static Matrix matrix;
     private Parent panel1;
     private Group panel2;
     private Scene primaryScene;
@@ -29,7 +30,7 @@ public class MainApp extends Application {
         // Инициализация окна #1
         createPrimaryStage(primaryStage);
         // Инициализация окна #2
-        Matrix matrix = new Matrix(createMatrixStage(),panel2);
+        matrix = new Matrix(panel2);
 
 
         boolean[][] matr = new boolean[][]{{false, true, true, false}, {true, false, false, true}, {true, false, false, true}, {false, true, true, false}};
@@ -77,9 +78,5 @@ public class MainApp extends Application {
         stage.show();
     }
 
-    private Stage createMatrixStage() throws IOException {
 
-        return secondaryStage;
-        //secondaryStage.setResizable(false);
-    }
 }

@@ -20,15 +20,21 @@ public class Matrix {
     private ArrayList<TableColumn<String,String>> tableColumns;
     private Group group;
 
-    public Matrix(Stage matrixStage, Parent panel) {
+    public Matrix(Parent panel) {
         this.group = new Group();
         this.matrixArray = new boolean[10][10];
-        this.matrixStage = matrixStage;
+        this.matrixStage = new Stage();
         this.matrixTable = new TableView<String>();
         tableColumns = new ArrayList<TableColumn<String, String>>();
+        TableColumn<String, String> n = new TableColumn<String, String>();
+        n.setText("N");
+        n.setPrefWidth(33);
+        tableColumns.add(n);
+        matrixTable.getColumns().addAll(n);
         for (int i = 0; i < 10; i++) {
             TableColumn<String,String> node = new TableColumn<String,String>();
             node.setText("N" + i);
+            node.setPrefWidth(33);
             tableColumns.add(node);
             matrixTable.getColumns().addAll(node);
 
@@ -43,6 +49,9 @@ public class Matrix {
     }
 
     public static void showMatrixTable() {
+
         matrixStage.show();
     }
+
+
 }
