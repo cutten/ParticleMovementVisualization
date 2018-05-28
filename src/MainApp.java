@@ -30,7 +30,8 @@ public class MainApp extends Application {
         // Инициализация окна #1
         createPrimaryStage(primaryStage);
         // Инициализация окна #2
-        matrix = new Matrix(panel2);
+        TheMatrixReload matrix = new TheMatrixReload(20);
+
 
 
         boolean[][] matr = new boolean[][]{{false, true, true, false}, {true, false, false, true}, {true, false, false, true}, {false, true, true, false}};

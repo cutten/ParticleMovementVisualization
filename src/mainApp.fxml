@@ -5,31 +5,31 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.layout.*?>
-<AnchorPane prefHeight="530.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="530.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
     <children>
         <VBox prefHeight="530.0" prefWidth="200.0">
             <children>
                 <Button id="openMatrix" mnemonicParsing="false" onMouseClicked="#openMatrix" text="Матрица смежности">
                     <VBox.margin>
-                        <Insets left="35.0" right="35.0" top="150.0"/>
+                        <Insets left="35.0" right="35.0" top="150.0" />
                     </VBox.margin>
                 </Button>
-                <ComboBox maxWidth="180.0" minWidth="160.0" prefHeight="25.0" prefWidth="160.0"
-                          promptText="Правило движения...">
+                <ComboBox maxWidth="180.0" minWidth="160.0" prefHeight="25.0" prefWidth="160.0" promptText="Правило движения...">
                     <VBox.margin>
-                        <Insets left="20.0" right="20.0" top="10.0"/>
+                        <Insets left="20.0" right="20.0" top="10.0" />
                     </VBox.margin>
                 </ComboBox>
-                <Button alignment="TOP_CENTER" mnemonicParsing="false" text="Сгенерировать" textAlignment="CENTER">
+                <Button alignment="TOP_CENTER" mnemonicParsing="false" onMouseClicked="#generate" text="Сгенерировать" textAlignment="CENTER">
                     <VBox.margin>
-                        <Insets left="50.0" top="10.0"/>
+                        <Insets left="50.0" top="10.0" />
                     </VBox.margin>
                 </Button>
             </children>
         </VBox>
-        <Separator layoutX="197.0" orientation="VERTICAL" prefHeight="550.0" prefWidth="7.0" rotate="180.0"/>
-        <Canvas id="mainCanvas" height="550.0" layoutX="204.0" width="596.0"/>
+        <Separator layoutX="197.0" orientation="VERTICAL" prefHeight="550.0" prefWidth="7.0" rotate="180.0" />
+        <Canvas id="mainCanvas" height="550.0" layoutX="204.0" width="596.0" />
     </children>
 </AnchorPane>
