@@ -9,15 +9,19 @@ import java.io.IOException;
 
 public class MainApp extends Application {
 
+    private static Stage secondaryStage;
+    private static GraphCanvas graphCanvas;
+    private Parent panel1, panel2;
+    private Scene primaryScene;
+    private Scene secondaryScene;
+
     public static void main(String[] args) {
         launch(args);
     }
 
-    private static Stage secondaryStage;
-    private Parent panel1, panel2;
-    private Scene primaryScene;
-    private Scene secondaryScene;
-    private GraphCanvas graphCanvas;
+    public static void openSecondaryStage() {
+        secondaryStage.show();
+    }
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -26,12 +30,23 @@ public class MainApp extends Application {
         // Инициализация окна #2
         createSecondaryStage();
 
-        boolean[][] matr = new boolean[][]{{false, true, true, false},{true, false, false, true},{true, false, false, true},{false, true, true, false}};
 
-        GraphGenerator.generate(matr, graphCanvas);
-        graphCanvas.repaint();
-        graphCanvas.repaint();
+        boolean[][] matr = new boolean[][]{{false, true, true, false}, {true, false, false, true}, {true, false, false, true}, {false, true, true, false}};
+        boolean[][] matr2 = new boolean[][]{{false, true, true, false}, {true, false, false, true}, {true, false, false, false}, {false, true, false, false}};
+        boolean[][] matr3 = new boolean[][]{
+                {false, true, false, true, false, false, false, false, false},
+                {true, false, true, false, true, false, false, false, false},
+                {false, true, false, false, false, true, false, false, false},
+                {true, false, false, false, true, false, true, false, false},
+                {false, true, false, true, false, true, false, true, false},
+                {false, false, true, false, true, false, false, false, true},
+                {false, false, false, true, false, false, false, true, false},
+                {false, false, false, false, true, false, true, false, true},
+                {false, false, false, false, false, true, false, true, false}
+        };
 
+        GraphGenerator.generate(matr3, graphCanvas);
+        graphCanvas.repaint();
 
 
         //javafx.scene.control.TableView tableView = (javafx.scene.control.TableView) panel2.lookup("#matrix");
@@ -69,9 +84,5 @@ public class MainApp extends Application {
         secondaryStage.setTitle("Матрица смежности");
         secondaryStage.setScene(secondaryScene);
         //secondaryStage.setResizable(false);
-    }
-
-    public static void openSecondaryStage() {
-        secondaryStage.show();
     }
 }

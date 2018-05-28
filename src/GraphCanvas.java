@@ -37,11 +37,11 @@ public class GraphCanvas {
         nodeArr = new ArrayList<>();
     }
 
-    double getWidth(){
+    double getWidth() {
         return mainCanvas.getWidth();
     }
 
-    double getHeight(){
+    double getHeight() {
         return mainCanvas.getHeight();
     }
 

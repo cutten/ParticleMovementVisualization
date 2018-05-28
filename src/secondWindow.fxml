@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane prefHeight="363.0" prefWidth="363.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<AnchorPane prefHeight="363.0" prefWidth="363.0" xmlns="http://javafx.com/javafx/9.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
     <children>
         <TableView id="matrix" prefHeight="363.0" prefWidth="363.0">
             <columns>
-                <TableColumn editable="false" prefWidth="33.0" resizable="false" sortable="false" text="N" />
-                <TableColumn prefWidth="33.0" resizable="false" sortable="false" text="N0" />
-                <TableColumn prefWidth="33.0" resizable="false" sortable="false" text="N1" />
-                <TableColumn prefWidth="33.0" resizable="false" sortable="false" text="N2" />
-                <TableColumn prefWidth="33.0" resizable="false" sortable="false" text="N3" />
-                <TableColumn prefWidth="33.0" resizable="false" sortable="false" text="N4" />
-                <TableColumn prefWidth="33.0" resizable="false" sortable="false" text="N5" />
-                <TableColumn prefWidth="33.0" resizable="false" sortable="false" text="N6" />
-                <TableColumn prefWidth="33.0" resizable="false" sortable="false" text="N7" />
-                <TableColumn prefWidth="33.0" resizable="false" sortable="false" text="N8" />
-                <TableColumn prefWidth="33.0" resizable="false" sortable="false" text="N9" />
+                <TableColumn editable="false" prefWidth="33.0" resizable="false" sortable="false" text="N"/>
+                <TableColumn prefWidth="33.0" resizable="false" sortable="false" text="N0"/>
+                <TableColumn prefWidth="33.0" resizable="false" sortable="false" text="N1"/>
+                <TableColumn prefWidth="33.0" resizable="false" sortable="false" text="N2"/>
+                <TableColumn prefWidth="33.0" resizable="false" sortable="false" text="N3"/>
+                <TableColumn prefWidth="33.0" resizable="false" sortable="false" text="N4"/>
+                <TableColumn prefWidth="33.0" resizable="false" sortable="false" text="N5"/>
+                <TableColumn prefWidth="33.0" resizable="false" sortable="false" text="N6"/>
+                <TableColumn prefWidth="33.0" resizable="false" sortable="false" text="N7"/>
+                <TableColumn prefWidth="33.0" resizable="false" sortable="false" text="N8"/>
+                <TableColumn prefWidth="33.0" resizable="false" sortable="false" text="N9"/>
             </columns>
         </TableView>
     </children>

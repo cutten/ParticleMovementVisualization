@@ -11,9 +11,9 @@ public class GraphGenerator {
         Node[] nodes = new Node[matrix.length];
         HashSet<Integer> numbersOfNodes = new HashSet<>();
 
-        double step = matrix.length <= 90 ? 100 - matrix.length : 10;
-        double firstX = canvas.getWidth() / 2 - (matrix.length * step) / 2;
-        double firstY = canvas.getHeight() / 2 - (matrix.length * step) / 2;
+        double step = matrix.length * 2 <= 90 ? 100 - matrix.length * 2 : 10;
+        double firstX = canvas.getWidth() / 2 - (matrix.length * step) / 8;
+        double firstY = canvas.getHeight() / 2 - (matrix.length * step) / 8;
 
 
         for (int i = 0; i < matrix.length; i++) {
@@ -33,22 +33,85 @@ public class GraphGenerator {
         int nextNode = 1;
         int currNode = 0;
         while (true) {
-            int count = 0;
+            //int count = 0;
+            Node down = nodes[currNode].getLeft() != null ? nodes[currNode].getLeft().getDown() : null;
+            Node right = nodes[currNode].getUp() != null ? nodes[currNode].getUp().getRight() : null;
             for (int i = 0; i < matrix.length; i++) {
                 if (i == nodes[currNode].getNumber())
                     continue;
 
+                boolean putted = false;
+
                 if (matrix[nodes[currNode].getNumber()][i] || matrix[i][nodes[currNode].getNumber()]) {
                     if (!numbersOfNodes.contains(i)) {
-                        if (nodes[currNode].getRight() == null) {
-                            nodes[nextNode++] = new Node(nodes[currNode].getCenterX() + step, nodes[currNode].getCenterY(), step / 10, i);
-                            nodes[currNode].setRight(nodes[nextNode - 1]);
-                            numbersOfNodes.add(i);
-                        } else if (nodes[currNode].getDown() == null) {
+                        if (!putted && (down != null) && (matrix[down.getNumber()][i] || matrix[i][down.getNumber()])) {
                             nodes[nextNode++] = new Node(nodes[currNode].getCenterX(), nodes[currNode].getCenterY() + step, step / 10, i);
+                            nodes[nextNode - 1].setUp(nodes[currNode]);
                             nodes[currNode].setDown(nodes[nextNode - 1]);
+                            down.setRight(nodes[nextNode - 1]);
+                            nodes[nextNode - 1].setLeft(down);
+                            numbersOfNodes.add(i);
+                            putted = true;
+                        }
+
+                        if (!putted && (right != null) && (matrix[right.getNumber()][i] || matrix[i][right.getNumber()])) {
+                            nodes[nextNode++] = new Node(nodes[currNode].getCenterX() + step, nodes[currNode].getCenterY(), step / 10, i);
+                            nodes[nextNode - 1].setLeft(nodes[currNode]);
+                            nodes[currNode].setRight(nodes[nextNode - 1]);
+                            right.setDown(nodes[nextNode - 1]);
+                            nodes[nextNode - 1].setUp(right);
+                            numbersOfNodes.add(i);
+                            putted = true;
+                        }
+
+//                        if (!putted && (down != null)) {
+//                            if (nodes[currNode].getRight() == null) {
+//                                nodes[nextNode++] = new Node(nodes[currNode].getCenterX() + step, nodes[currNode].getCenterY(), step / 10, i);
+//                                nodes[nextNode - 1].setLeft(nodes[currNode]);
+//                                nodes[currNode].setRight(nodes[nextNode - 1]);
+//                            } else {
+//                                nodes[nextNode++] = new Node(nodes[currNode].getCenterX(), nodes[currNode].getCenterY() + step, step / 10, i);
+//                                nodes[nextNode - 1].setUp(nodes[currNode]);
+//                                nodes[currNode].setDown(nodes[nextNode - 1]);
+//                            }
+//                            numbersOfNodes.add(i);
+//                            putted = true;
+//                        }
+
+                        if (!putted && (right != null)) {
+                            if (nodes[currNode].getDown() == null) {
+                                nodes[nextNode++] = new Node(nodes[currNode].getCenterX(), nodes[currNode].getCenterY() + step, step / 10, i);
+                                nodes[nextNode - 1].setUp(nodes[currNode]);
+                                nodes[currNode].setDown(nodes[nextNode - 1]);
+                            } else {
+                                nodes[nextNode++] = new Node(nodes[currNode].getCenterX() + step, nodes[currNode].getCenterY(), step / 10, i);
+                                nodes[nextNode - 1].setLeft(nodes[currNode]);
+                                nodes[currNode].setRight(nodes[nextNode - 1]);
+                            }
+                            numbersOfNodes.add(i);
+                            putted = true;
+                        }
+
+                        if (!putted) {
+                            if (nodes[currNode].getRight() == null) {
+                                nodes[nextNode++] = new Node(nodes[currNode].getCenterX() + step, nodes[currNode].getCenterY(), step / 10, i);
+                                nodes[nextNode - 1].setLeft(nodes[currNode]);
+                                nodes[currNode].setRight(nodes[nextNode - 1]);
+                            } else {
+                                nodes[nextNode++] = new Node(nodes[currNode].getCenterX(), nodes[currNode].getCenterY() + step, step / 10, i);
+                                nodes[nextNode - 1].setUp(nodes[currNode]);
+                                nodes[currNode].setDown(nodes[nextNode - 1]);
+                            }
                             numbersOfNodes.add(i);
                         }
+
+//                        if (nodes[currNode].getRight() == null) {
+//                            nodes[currNode].setRight(nodes[nextNode - 1]);
+//                        } else if (nodes[currNode].getDown() == null) {
+//                            nodes[nextNode++] = new Node(nodes[currNode].getCenterX(), nodes[currNode].getCenterY() + step, step / 10, i);
+//                            nodes[currNode].setDown(nodes[nextNode - 1]);
+//                            numbersOfNodes.add(i);
+//                        }
 
 //                        switch (count) {
 //                            case 0:
@@ -79,6 +142,21 @@ public class GraphGenerator {
 
         for (Node node : nodes) {
             canvas.addNode(node);
+        }
+
+        for (int i = 0; i < nodes.length; i++) {
+            for (int j = i + 1; j < nodes.length; j++) {
+                PathLine pathLine;
+                if (matrix[nodes[i].getNumber()][nodes[j].getNumber()] && matrix[nodes[j].getNumber()][nodes[i].getNumber()]) {
+                    pathLine = new PathLine(nodes[i], nodes[j], 3);
+                } else if (matrix[nodes[i].getNumber()][nodes[j].getNumber()]) {
+                    pathLine = new PathLine(nodes[i], nodes[j], 1);
+                } else if (matrix[nodes[j].getNumber()][nodes[i].getNumber()]) {
+                    pathLine = new PathLine(nodes[i], nodes[j], 2);
+                } else
+                    continue;
+                canvas.addPath(pathLine);
+            }
         }
 
 
@@ -141,10 +219,5 @@ public class GraphGenerator {
 
 
     }
-
-    private void centerNode(int centerNode, int[] secondNodes, boolean[][] matrix, GraphCanvas graphCanvas) {
-
-    }
-
 
 }
