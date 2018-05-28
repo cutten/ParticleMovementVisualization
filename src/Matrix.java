@@ -23,7 +23,6 @@ public class Matrix {
     ObservableList<String> o1;
     private ArrayList<TableColumn<String, String>> tableColumns;
     private Group group;
-    private ConnectionsList connectionsList;
 
     public Matrix(Parent panel) {
         this.stringArray = new String[10][10];
@@ -49,7 +48,6 @@ public class Matrix {
         matrixTable.setEditable(false);
 
         tableColumns = new ArrayList<TableColumn<String, String>>();
-        connectionsList = new ConnectionsList();
 
         matrixTable.setPrefSize(363, 363);
 

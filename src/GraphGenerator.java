@@ -64,7 +64,7 @@ public class GraphGenerator {
             int currNode = 0;
             //Алгоритм построения графа. Граф строится от "нулевой" точки вправо и вниз.
             //Заметка.
-            //При невозможности построить вправо или вниз надо добавить строительство вверх.
+            // TODO: При невозможности построить вправо или вниз надо добавить строительство вверх.
             while (true) {
                 Node down = nodes[currNode].getLeft() != null ? nodes[currNode].getLeft().getDown() : null;
                 Node right = nodes[currNode].getUp() != null ? nodes[currNode].getUp().getRight() : null;

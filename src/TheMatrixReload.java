@@ -43,14 +43,16 @@ public class TheMatrixReload {
                 tf.setPrefSize(25,25);
                 tf.setLayoutX(25 + j*25);
                 tf.setLayoutY(25 + i*25);
-                if (i==j){
-                    tf.setEditable(false);
-                    tf.setText("X");
-                }
+//                if (i==j){
+//                    tf.setEditable(false);
+//                    tf.setText("X");
+//                }
                 textFieldsArr.add(tf);
                 group.getChildren().add(tf);
             }
         }
+
+
         scene = new Scene(group, nodesCount*25+50, nodesCount*25+50);
         stage = new Stage();
         stage.getIcons().add(new Image("file:iconv2.png"));
@@ -72,7 +74,7 @@ public class TheMatrixReload {
     boolean[][] fillBoolArray(){
         for (int i = 0; i < nodesCount; i++) {
             for (int j = 0; j < nodesCount; j++) {
-                boolArray[i][j] = strToBool(textFieldsArr.get(1*i + 1*j).getText());
+                boolArray[i][j] = strToBool(textFieldsArr.get(i+j).getText());
             }
         }
         return boolArray;
@@ -81,7 +83,29 @@ public class TheMatrixReload {
     boolean strToBool(String string){
         if (string == "0")
             return false;
-        else
-            return true;
+        return true;
+    }
+
+    String boolToStr(boolean b){
+        if (!b)
+            return "0";
+        return "1";
+    }
+
+    void setPreset(boolean[][] preset){
+        for (int i = 0; i < nodesCount; i++) {
+            for (int j = 0; j < nodesCount; j++) {
+                boolArray[i][j] = preset[i][j];
+                refreshMatrix();
+            }
+        }
+    }
+
+    void refreshMatrix(){
+        for (int i = 0; i < nodesCount; i++) {
+            for (int j = 0; j < nodesCount; j++) {
+                textFieldsArr.get(i+j).setText(boolToStr(boolArray[i][j]));
+            }
+        }
     }
 }

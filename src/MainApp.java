@@ -27,15 +27,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        // Инициализация окна #1
-        createPrimaryStage(primaryStage);
-        // Инициализация окна #2
-        TheMatrixReload matrix = new TheMatrixReload(20);
-
-
-
-        boolean[][] matr = new boolean[][]{{false, true, true, false}, {true, false, false, true}, {true, false, false, true}, {false, true, true, false}};
-        boolean[][] matr2 = new boolean[][]{{false, true, true, false}, {true, false, false, true}, {true, false, false, false}, {false, true, false, false}};
+        boolean[][] test;
         boolean[][] matr3 = new boolean[][]{
                 {false, true, false, true, false, false, false, false, false},
                 {true, false, true, false, true, false, false, false, false},
@@ -47,9 +39,24 @@ public class MainApp extends Application {
                 {false, false, false, false, true, false, true, false, true},
                 {false, false, false, false, false, true, false, true, false}
         };
+        // Инициализация окна #1
+        createPrimaryStage(primaryStage);
+        // Инициализация окна #2
+        TheMatrixReload matrix = new TheMatrixReload(9);
+        matrix.setPreset(matr3);
+        matrix.fillBoolArray();
+        test = matrix.getBoolArray();
 
-        GraphGenerator.generate(matr, graphCanvas);
-        GraphGenerator.generate(matr3, graphCanvas);
+
+
+        boolean[][] matr = new boolean[][]{{false, true, true, false}, {true, false, false, true}, {true, false, false, true}, {false, true, true, false}};
+        boolean[][] matr2 = new boolean[][]{{false, true, true, false}, {true, false, false, true}, {true, false, false, false}, {false, true, false, false}};
+
+
+        GraphGenerator.generate(test, graphCanvas);
+        //GraphGenerator.generate(matr3, graphCanvas);
+
+
 
 
         //javafx.scene.control.TableView tableView = (javafx.scene.control.TableView) panel2.lookup("#matrix");
