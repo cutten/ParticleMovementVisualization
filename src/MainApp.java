@@ -47,8 +47,8 @@ public class MainApp extends Application {
                 {false, false, false, false, false, true, false, true, false}
         };
 
+        GraphGenerator.generate(matr, graphCanvas);
         GraphGenerator.generate(matr3, graphCanvas);
-        graphCanvas.repaint();
 
 
         //javafx.scene.control.TableView tableView = (javafx.scene.control.TableView) panel2.lookup("#matrix");
@@ -59,10 +59,10 @@ public class MainApp extends Application {
 //        Node node1 = new Node(50, 50, 10);
 //        Node node2 = new Node(50, 100, 10);
 //        PathLine pl = new PathLine(node1, node2, 1);
-//        graphCanvas.addNode(node1);
-//        graphCanvas.addNode(node2);
-//        graphCanvas.addPath(pl);
-//        graphCanvas.repaint();
+//        canvas.addNode(node1);
+//        canvas.addNode(node2);
+//        canvas.addPath(pl);
+//        canvas.repaint();
 
 
     }
