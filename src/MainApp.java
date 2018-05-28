@@ -1,5 +1,6 @@
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -9,9 +10,11 @@ import java.io.IOException;
 
 public class MainApp extends Application {
 
+
     private static Stage secondaryStage;
     private static GraphCanvas graphCanvas;
-    private Parent panel1, panel2;
+    private Parent panel1;
+    private Group panel2;
     private Scene primaryScene;
     private Scene secondaryScene;
 
@@ -19,16 +22,14 @@ public class MainApp extends Application {
         launch(args);
     }
 
-    public static void openSecondaryStage() {
-        secondaryStage.show();
-    }
+
 
     @Override
     public void start(Stage primaryStage) throws IOException {
         // Инициализация окна #1
         createPrimaryStage(primaryStage);
         // Инициализация окна #2
-        createSecondaryStage();
+        Matrix matrix = new Matrix(createMatrixStage(),panel2);
 
 
         boolean[][] matr = new boolean[][]{{false, true, true, false}, {true, false, false, true}, {true, false, false, true}, {false, true, true, false}};
@@ -76,13 +77,9 @@ public class MainApp extends Application {
         stage.show();
     }
 
-    private void createSecondaryStage() throws IOException {
-        panel2 = FXMLLoader.load(getClass().getResource("secondWindow.fxml"));
-        secondaryScene = new Scene(panel2, 363, 363);
-        secondaryStage = new Stage();
-        secondaryStage.getIcons().add(new Image("file:iconv2.png"));
-        secondaryStage.setTitle("Матрица смежности");
-        secondaryStage.setScene(secondaryScene);
+    private Stage createMatrixStage() throws IOException {
+
+        return secondaryStage;
         //secondaryStage.setResizable(false);
     }
 }

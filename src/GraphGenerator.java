@@ -15,7 +15,7 @@ public class GraphGenerator {
         double firstX = canvas.getWidth() / 2 - (matrix.length * step) / 8;
         double firstY = canvas.getHeight() / 2 - (matrix.length * step) / 8;
 
-
+        // Алгоритм нахождения начальной точки графа(левая верхняя)
         for (int i = 0; i < matrix.length; i++) {
             int count = 0;
             for (int j = 0; j < matrix.length; j++) {
