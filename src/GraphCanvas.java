@@ -1,49 +1,79 @@
 import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 
 public class GraphCanvas {
-    private Canvas mainCanvas;
-    private ArrayList<PathLine> lineArr;
-    private ArrayList<Node> nodeArr;
+    private Pane pane; // Полотно, на котором отрисовывается граф
+    private ArrayList<PathLine> lineArr; // Массив соединяющих линий
+    private ArrayList<Node> nodeArr; // Массив вершин
+    private ArrayList<Particle> particleArr; // Массив частиц
 
+    //Конструктор
     public GraphCanvas(Parent panel) {
-        mainCanvas = (Canvas) panel.lookup("#mainCanvas");
+        //Инициализация переменных
+        pane = (Pane) panel.lookup("#graphPane");
         lineArr = new ArrayList<>();
         nodeArr = new ArrayList<>();
+        particleArr = new ArrayList<>();
     }
 
+    //Отрисовка графа
     public void repaint() {
 
         for (PathLine pathline : lineArr) {
-            pathline.paint(mainCanvas.getGraphicsContext2D());
+            pathline.paint(pane);
         }
         for (Node node : nodeArr) {
-            node.paint(mainCanvas.getGraphicsContext2D());
+            node.paint(pane);
         }
+
+        for (Particle particle:particleArr) {
+            particle.paint(pane);
+        }
+
     }
 
-    void addNode(Node node) {
-        nodeArr.add(node);
-    }
-
-    void addPath(PathLine pathline) {
-        lineArr.add(pathline);
-    }
-
+    // Удаление графа
     void reinit() {
         lineArr = new ArrayList<>();
         nodeArr = new ArrayList<>();
     }
 
+    //Добавление вершины графа в массив
+    void addNode(Node node) {
+        nodeArr.add(node);
+    }
+
+    //Добавление соединяющие линии в массив
+    void addPath(PathLine pathline) {
+        lineArr.add(pathline);
+    }
+
+    //Добавление частицы в массив
+    void addParticle(Particle particle){particleArr.add(particle);}
+
+    //Геттеры и сеттеры
+    //
+    //
+    //
+    public ArrayList<PathLine> getLineArr() {
+        return lineArr;
+    }
+
+    public ArrayList<Node> getNodeArr() {
+        return nodeArr;
+    }
+
     double getWidth() {
-        return mainCanvas.getWidth();
+        return pane.getWidth();
     }
 
     double getHeight() {
-        return mainCanvas.getHeight();
+        return pane.getHeight();
     }
+
 
 }
 

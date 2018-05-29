@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashSet;
 
 public class GraphGenerator {
@@ -9,8 +10,12 @@ public class GraphGenerator {
      */
     public static void generate(boolean[][] matrix, GraphCanvas canvas) {
         //Запускаю обработку графа в отдельный поток, чтобы не зависало окно.
-        Thread thread = new Thread(new Generator(canvas, matrix));
-        thread.start();
+        System.out.println("Построение графа по матрице:");
+        for (int i = 0; i < matrix.length; i++) {
+            System.out.println(Arrays.toString(matrix));
+        }
+        Generator generator = new Generator(canvas, matrix);
+        generator.run();
     }
 
     /*
@@ -28,11 +33,11 @@ public class GraphGenerator {
             this.matrix = matrix;
         }
 
-        @Override
+
         public void run() {
-            if (isRunning) //Реализация контроля единовременной обработки. Если обработка уже идёт, поток закроется.
-                return;
-            isRunning = true;
+//            if (isRunning) //Реализация контроля единовременной обработки. Если обработка уже идёт, поток закроется.
+//                return;
+//            isRunning = true;
 
             canvas.reinit(); //Сброс текущего графа.
 
@@ -394,7 +399,7 @@ public class GraphGenerator {
 */
 
             canvas.repaint();
-            isRunning = false;
+            //isRunning = false;
         }
     }
 
