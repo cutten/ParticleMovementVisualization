@@ -89,9 +89,13 @@ public class MainApp extends Application {
 
     // Метод - "Оболочка" для запуска анимации
     static void startAnimation() throws InterruptedException {
+        try{
         Particle particle = new Particle(graphCanvas);
         particleMovement = new SequentialTransition(particle.moveRight(),particle.moveDown(),particle.moveLeft());
-        particleMovement.play();
+        particleMovement.play();}
+        catch (IndexOutOfBoundsException e){
+            displayError("не на чем показывать анимацию :P");
+        }
     }
 
     static void displayError(String string){
