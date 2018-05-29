@@ -7,6 +7,17 @@ public class Node {
     private int number;
     private Node up, down, left, right;
 
+    public Node(int number) {
+        this.centerX = -1;
+        this.centerY = -1;
+        this.radius = -1;
+        this.number = number;
+        this.up = null;
+        this.down = null;
+        this.left = null;
+        this.right = null;
+    }
+
     public Node(double x, double y, double radius, int number) {
         this.centerX = x;
         this.centerY = y;
@@ -29,22 +40,28 @@ public class Node {
         this.right = right;
     }
 
-    /*public boolean isConnected(Node p){
-        return false;
-}*/
-
     public double getCenterX() {
         return centerX;
     }
 
+    public void setCenterX(double centerX) {
+        this.centerX = centerX;
+    }
 
     public double getCenterY() {
         return centerY;
     }
 
+    public void setCenterY(double centerY) {
+        this.centerY = centerY;
+    }
 
     public double getRadius() {
         return radius;
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
     }
 
     public int getNumber() {

@@ -53,8 +53,8 @@ public class MainApp extends Application {
         boolean[][] matr2 = new boolean[][]{{false, true, true, false}, {true, false, false, true}, {true, false, false, false}, {false, true, false, false}};
 
 
-        GraphGenerator.generate(test, graphCanvas);
-        //GraphGenerator.generate(matr3, graphCanvas);
+        //GraphGenerator.generate(test, graphCanvas);
+        GraphGenerator.generate(matr3, graphCanvas);
 
 
 
