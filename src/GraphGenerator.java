@@ -12,8 +12,10 @@ public class GraphGenerator {
         //Запускаю обработку графа в отдельный поток, чтобы не зависало окно.
         System.out.println("Построение графа по матрице:");
         for (int i = 0; i < matrix.length; i++) {
-            System.out.println(Arrays.toString(matrix));
+            System.out.println(Arrays.toString(matrix[i]));
         }
+        //Thread thread = new Thread(Thread.currentThread().getThreadGroup(), new Generator(canvas, matrix));
+        //thread.start();
         Generator generator = new Generator(canvas, matrix);
         generator.run();
     }
@@ -35,14 +37,13 @@ public class GraphGenerator {
 
 
         public void run() {
-//            if (isRunning) //Реализация контроля единовременной обработки. Если обработка уже идёт, поток закроется.
-//                return;
-//            isRunning = true;
+            if (isRunning) //Реализация контроля единовременной обработки. Если обработка уже идёт, поток закроется.
+                return;
+            isRunning = true;
 
             canvas.reinit(); //Сброс текущего графа.
 
             Node[] nodes = new Node[matrix.length];
-            //int[] indexes = new int[matrix.length];
 
 
             for (int i = 0; i < nodes.length; i++) {
@@ -60,7 +61,7 @@ public class GraphGenerator {
                     continue;
 
                 boolean correctMode2 = false;
-                for (int j = i + 1; j < matrix.length; j++) {
+                for (int j = 0; j < matrix.length; j++) {
                     if (!correctMode2 && missingNodes.contains(j))
                         continue;
                     if (correctMode2 && !missingNodes.contains(j))
@@ -399,7 +400,7 @@ public class GraphGenerator {
 */
 
             canvas.repaint();
-            //isRunning = false;
+            isRunning = false;
         }
     }
 
