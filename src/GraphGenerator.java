@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashSet;
 
 public class GraphGenerator {
@@ -9,6 +10,10 @@ public class GraphGenerator {
      */
     public static void generate(boolean[][] matrix, GraphCanvas canvas) {
         //Запускаю обработку графа в отдельный поток, чтобы не зависало окно.
+        System.out.println("Построение графа по матрице:");
+        for (int i = 0; i < matrix.length; i++) {
+            System.out.println(Arrays.toString(matrix));
+        }
         Thread thread = new Thread(new Generator(canvas, matrix));
         thread.start();
     }

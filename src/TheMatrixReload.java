@@ -92,7 +92,7 @@ public class TheMatrixReload {
     }
 
     boolean strToBool(String string){
-        if (string == "0")
+        if (string.equals("0"))
             return false;
         else
         return true;

@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 public class MainApp extends Application {
 
-
+    private static final int nodesCount = 9;
     private static Stage secondaryStage;
     private static GraphCanvas graphCanvas;
     private static TheMatrixReload matrix;
@@ -45,7 +45,7 @@ public class MainApp extends Application {
         // Инициализация окна #1
         createPrimaryStage(primaryStage);
         // Инициализация окна #2
-        matrix = new TheMatrixReload(9);
+        matrix = new TheMatrixReload(nodesCount);
         matrix.setPreset(matr3);
         matrix.refreshMatrix();
         test = matrix.getBoolArray();
@@ -89,17 +89,6 @@ public class MainApp extends Application {
 
     static void mainGenerate(){
         matrix.fillBoolArray();
-        boolean flag = true;
-        for (int i = 0; i < 9; i++) {
-            System.out.println(Arrays.toString(matrix.getBoolArray()[i]));
-            for (int j = 0; j < 9; j++) {
-                if (matrix.getBoolArray()[i][j] != matr3[i][j])
-                    flag = false;
-
-            }
-        }
-
-        System.out.println(flag);
         GraphGenerator.generate(matrix.getBoolArray(),graphCanvas);
 
     }
