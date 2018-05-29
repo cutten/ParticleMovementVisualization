@@ -1,4 +1,3 @@
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 
@@ -13,6 +12,7 @@ public class PathLine {
     private Node node2; // Вершина 2
     private int var; // вариант соединения(пока не используется)
     private boolean isHorizontal; // ориентация линии
+    Rectangle line;
     private final Color COLOR = new Color(0, 0, 0); // Черный
 
     public PathLine(Node node1, Node node2, int var) {
@@ -36,11 +36,13 @@ public class PathLine {
         this.var = var;
     }
 
-    // Отрисовка
-    void paint(Pane pane) {
-        Rectangle line = new Rectangle(x,y,lineWidth,lineHeight);
-        line.setFill(javafx.scene.paint.Color.BLACK);
-        pane.getChildren().add(line);
+    // Добавление в панель графического компонента.
+    void addChildren(Pane pane) {
+        if (line == null || !pane.getChildren().contains(line)) {
+            line = new Rectangle(x, y, lineWidth, lineHeight);
+            line.setFill(javafx.scene.paint.Color.BLACK);
+            pane.getChildren().add(line);
+        }
     }
 
     public double getLineWidth() {

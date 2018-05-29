@@ -53,7 +53,7 @@ public class MainApp extends Application {
         matrix.setPreset(matr3);
         matrix.refreshMatrix();
         test = matrix.getBoolArray();
-        displayError("Слишком круто...");
+        //displayError("Слишком круто...");
 //        boolean[][] matr = new boolean[][]{{false, true, true, false}, {true, false, false, true}, {true, false, false, true}, {false, true, true, false}};
 //        boolean[][] matr2 = new boolean[][]{{false, true, true, false}, {true, false, false, true}, {true, false, false, false}, {false, true, false, false}};
 

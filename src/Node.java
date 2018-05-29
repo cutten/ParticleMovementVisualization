@@ -1,4 +1,3 @@
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -9,6 +8,8 @@ public class Node {
     private double radius;
     private int number;
     private Node up, down, left, right;
+    private Circle circle;
+
 
     public Node(int number) {
         this.centerX = -1;
@@ -107,9 +108,11 @@ public class Node {
 
 
     //Отрисовка
-    public void paint(Pane pane) {
-        Circle circle = new Circle(centerX,centerY,radius, Color.BLACK);
-        pane.getChildren().add(circle);
+    public void addChildren(Pane pane) {
+        if (circle == null || !pane.getChildren().contains(circle)) {
+            circle = new Circle(centerX, centerY, radius, Color.BLACK);
+            pane.getChildren().add(circle);
+        }
     }
 
 

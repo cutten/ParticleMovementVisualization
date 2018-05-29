@@ -1,5 +1,4 @@
 import javafx.scene.Parent;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
@@ -20,17 +19,17 @@ public class GraphCanvas {
     }
 
     //Отрисовка графа
-    public void repaint() {
+    public void reAddChildren() {
 
         for (PathLine pathline : lineArr) {
-            pathline.paint(pane);
+            pathline.addChildren(pane);
         }
         for (Node node : nodeArr) {
-            node.paint(pane);
+            node.addChildren(pane);
         }
 
         for (Particle particle:particleArr) {
-            particle.paint(pane);
+            particle.addChildren(pane);
         }
 
     }

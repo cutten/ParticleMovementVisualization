@@ -1,11 +1,10 @@
 import javafx.animation.TranslateTransition;
-
-import java.util.ArrayList;
-
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
+
+import java.util.ArrayList;
 
 public class Particle {
     //Инициализация переменных
@@ -23,11 +22,9 @@ public class Particle {
         lineArr = graphCanvas.getLineArr();
         nodeArr = graphCanvas.getNodeArr();
         firstNode = nodeArr.get(0);
-        partical = new Circle(firstNode.getCenterX(),firstNode.getCenterY(),firstNode.getRadius()/1.25, Color.GREEN);
         pathlineLength = lineArr.get(0).getLength();
-
         graphCanvas.addParticle(this);
-        graphCanvas.repaint();
+        graphCanvas.reAddChildren();
     }
 
     // Движение вправо
@@ -66,7 +63,10 @@ public class Particle {
         return transition;
     }
 
-    void paint(Pane pane){
-        pane.getChildren().add(partical);
+    void addChildren(Pane pane) {
+        if (partical == null && !pane.getChildren().contains(partical)) {
+            partical = new Circle(firstNode.getCenterX(), firstNode.getCenterY(), firstNode.getRadius() / 1.25, Color.GREEN);
+            pane.getChildren().add(partical);
+        }
     }
 }
