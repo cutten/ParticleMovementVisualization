@@ -11,6 +11,7 @@ public class Node {
     private Node up, down, left, right;
 
     public Node(double x, double y, double radius, int number) {
+        //Инициализация переменных
         this.centerX = x;
         this.centerY = y;
         this.radius = radius;
@@ -22,6 +23,7 @@ public class Node {
     }
 
     public Node(double x, double y, double radius, int number, Node up, Node down, Node left, Node right) {
+        //Инициализация переменных
         this.centerX = x;
         this.centerY = y;
         this.radius = radius;
@@ -86,6 +88,8 @@ public class Node {
         this.right = right;
     }
 
+
+    //Отрисовка
     public void paint(Pane pane) {
         Circle circle = new Circle(centerX,centerY,radius, Color.BLACK);
         pane.getChildren().add(circle);

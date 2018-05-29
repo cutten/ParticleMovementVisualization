@@ -7,19 +7,21 @@ import java.awt.*;
 public class PathLine {
 
 
-    private double x, y;
-    private double lineWidth, lineHeight;
-    private Node node1;
-    private Node node2;
-    private int var;
-    private boolean isHorizontal;
+    private double x, y; // Координаты
+    private double lineWidth, lineHeight; // Ширина, высота
+    private Node node1; // Вершина 1
+    private Node node2; // Вершина 2
+    private int var; // вариант соединения(пока не используется)
+    private boolean isHorizontal; // ориентация линии
     private final Color COLOR = new Color(0, 0, 0); // Черный
 
     public PathLine(Node node1, Node node2, int var) {
-
+        // Определение координат
         x = node1.getCenterX() < node2.getCenterX() ? node1.getCenterX() : node2.getCenterX();
         y = node1.getCenterY() < node2.getCenterY() ? node1.getCenterY() : node2.getCenterY();
+        //Определение ориентации
         isHorizontal = node1.getCenterX() != node2.getCenterX();
+
         if (isHorizontal) {
             lineWidth = Math.abs(node2.getCenterX() - node1.getCenterX());
             lineHeight = node1.getRadius() / 4;
@@ -34,6 +36,7 @@ public class PathLine {
         this.var = var;
     }
 
+    // Отрисовка
     void paint(Pane pane) {
         Rectangle line = new Rectangle(x,y,lineWidth,lineHeight);
         line.setFill(javafx.scene.paint.Color.BLACK);
@@ -46,6 +49,14 @@ public class PathLine {
 
     public double getLineHeight() {
         return lineHeight;
+    }
+
+    // Геттер для длинны строки, независимо от ее ориентации
+    public double getLength(){
+        if(lineHeight>lineWidth)
+            return lineHeight;
+        else
+            return lineWidth;
     }
 
     public boolean isHorizontal() {

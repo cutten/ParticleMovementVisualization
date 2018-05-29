@@ -9,24 +9,27 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class TheMatrixReload {
-    private static boolean[][] boolArray;
-    private int nodesCount;
-    private static Stage stage;
-    private Scene scene;
-    private Group group;
-    private ArrayList<ArrayList<LimitedTextField>> textFieldsArr;
-    private ArrayList<Label> horizontalLabels;
-    private ArrayList<Label> verticalLabels;
+public class AdjMatrix {
+    private static boolean[][] boolArray; // Основной массив-матрица данных, по нему строится граф
+    private int nodesCount; // Кол-во вершин в графе
+    private static Stage stage; // Окно для таблицы
+    private Scene scene; // Сцена-контейнер для таблицы
+    private Group group; // Группировка ячеек
+    private ArrayList<ArrayList<LimitedTextField>> textFieldsArr; // Массив ячеек
+    private ArrayList<Label> horizontalLabels; // Массив подписей сверху таблицы
+    private ArrayList<Label> verticalLabels; // Массив подписей  слева таблицы
 
 
-    TheMatrixReload(int nodesCount){
+    AdjMatrix(int nodesCount){
+        //Инициализация переменных
         this.group = new Group();
         this.nodesCount = nodesCount;
         this.textFieldsArr = new ArrayList<ArrayList<LimitedTextField>>();
         this.horizontalLabels = new ArrayList<Label>();
         this.verticalLabels = new ArrayList<Label>();
         boolArray = new boolean[nodesCount][nodesCount];
+
+        // Алгоритм генерации таблицы размерности nodesCount
         for (int i = 0; i < nodesCount; i++) {
             Label verticalLabel = new Label("N" + i);
             verticalLabel.setLayoutY(30 + i*25);
@@ -55,6 +58,7 @@ public class TheMatrixReload {
                 textFieldsArr.get(i).add(tf);
                 group.getChildren().add(tf);
             }
+         ///////////////////////////////////////////////
         }
 
 
@@ -79,7 +83,7 @@ public class TheMatrixReload {
         return boolArray;
     }
 
-    boolean[][] fillBoolArray(){
+    boolean fillBoolArray(){
         boolean flag = true;
         for (int i = 0; i < nodesCount; i++) {
             for (int j = 0; j < nodesCount; j++) {
@@ -88,9 +92,48 @@ public class TheMatrixReload {
             }
         }
 
-        return boolArray;
+        return checkBoolArray();
     }
 
+    boolean checkBoolArray() {
+        for (int i = 0; i < boolArray.length; i++) {
+            for (int j = 0; j < boolArray.length; j++) {
+                if (boolArray[i][j]) {
+                if (i==0){
+                    if (j==0)
+                        if(boolArray[i][j+1] || boolArray[i+1][j])
+                            return false;
+                    if (j==boolArray.length-1)
+                        if (boolArray[i][j-1] || boolArray[i+1][j])
+                            return false;
+                    if(boolArray[i][j-1] || boolArray[i][j+1] || boolArray[i+1][j])
+                        return false;
+                }
+                if (i==boolArray.length-1){
+                    if (j==0)
+                        if(boolArray[i][j+1] || boolArray[i-1][j])
+                            return false;
+                    if (j==boolArray.length-1)
+                        if (boolArray[i][j-1] || boolArray[i-1][j])
+                            return false;
+                    if(boolArray[i][j-1] || boolArray[i][j+1] || boolArray[i-1][j])
+                        return false;
+                }
+                if (j==0)
+                    if (boolArray[i+1][j] || boolArray[i-1][j] || boolArray[i][j+1])
+                        return false;
+                }
+                if (j==boolArray.length-1){
+                    if (boolArray[i+1][j] || boolArray[i-1][j] || boolArray[i][j-1])
+                        return false;
+                }
+                if (boolArray[i+1][j] || boolArray[i-1][j] || boolArray[i][j+1] || boolArray[i][j-1])
+                    return false;
+
+            }
+        }
+        return true;
+    }
     boolean strToBool(String string){
         if (string.equals("0"))
             return false;
@@ -112,8 +155,6 @@ public class TheMatrixReload {
 
             }
         }
-
-
 
     }
 

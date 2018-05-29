@@ -3,6 +3,13 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.TextField;
 
+// Класс элемента для ввода текста с ограничением по кол-ву символов, для матрицы
+//
+//
+//
+
+
+
 public class LimitedTextField extends TextField {
 
     private final IntegerProperty maxLength;
