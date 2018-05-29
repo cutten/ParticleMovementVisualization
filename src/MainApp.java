@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import sun.awt.windows.ThemeReader;
 
 import java.io.IOException;
 
@@ -53,8 +54,8 @@ public class MainApp extends Application {
         boolean[][] matr2 = new boolean[][]{{false, true, true, false}, {true, false, false, true}, {true, false, false, false}, {false, true, false, false}};
 
 
-        GraphGenerator.generate(test, graphCanvas);
-        //GraphGenerator.generate(matr3, graphCanvas);
+        //GraphGenerator.generate(test, graphCanvas);
+        GraphGenerator.generate(matr3, graphCanvas);
 
 
 
@@ -82,7 +83,7 @@ public class MainApp extends Application {
         stage.getIcons().add(new Image("file:iconv2.png"));
         stage.setTitle("Визуализация движения частиц по регулярным сетям");
         stage.setScene(primaryScene);
-        //stage.setResizable(false);
+        stage.setResizable(false);
         stage.show();
     }
 

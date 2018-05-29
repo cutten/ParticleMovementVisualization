@@ -3,6 +3,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class TheMatrixReload {
     private static Stage stage;
     private Scene scene;
     private Group group;
-    private ArrayList<LimitedTextField> textFieldsArr;
+    private ArrayList<ArrayList<LimitedTextField>> textFieldsArr;
     private ArrayList<Label> horizontalLabels;
     private ArrayList<Label> verticalLabels;
 
@@ -21,7 +22,7 @@ public class TheMatrixReload {
     TheMatrixReload(int nodesCount){
         this.group = new Group();
         this.nodesCount = nodesCount;
-        this.textFieldsArr = new ArrayList<LimitedTextField>();
+        this.textFieldsArr = new ArrayList<ArrayList<LimitedTextField>>();
         this.horizontalLabels = new ArrayList<Label>();
         this.verticalLabels = new ArrayList<Label>();
         boolArray = new boolean[nodesCount][nodesCount];
@@ -31,6 +32,8 @@ public class TheMatrixReload {
             verticalLabel.setLayoutX(6);
             verticalLabels.add(verticalLabel);
             group.getChildren().add(verticalLabel);
+            ArrayList<LimitedTextField> a = new ArrayList<LimitedTextField>();
+            textFieldsArr.add(a);
             for (int j = 0; j < nodesCount; j++) {
                 if (i==0){
                     Label horizontalLabel = new Label("N" + j);
@@ -43,11 +46,12 @@ public class TheMatrixReload {
                 tf.setPrefSize(25,25);
                 tf.setLayoutX(25 + j*25);
                 tf.setLayoutY(25 + i*25);
+                tf.setFont(new Font(12));
 //                if (i==j){
 //                    tf.setEditable(false);
 //                    tf.setText("X");
 //                }
-                textFieldsArr.add(tf);
+                textFieldsArr.get(i).add(tf);
                 group.getChildren().add(tf);
             }
         }
@@ -57,6 +61,7 @@ public class TheMatrixReload {
         stage = new Stage();
         stage.getIcons().add(new Image("file:iconv2.png"));
         stage.setTitle("Матрица смежности");
+        stage.setResizable(false);
         stage.setScene(scene);
         
         
@@ -74,7 +79,7 @@ public class TheMatrixReload {
     boolean[][] fillBoolArray(){
         for (int i = 0; i < nodesCount; i++) {
             for (int j = 0; j < nodesCount; j++) {
-                boolArray[i][j] = strToBool(textFieldsArr.get(i+j).getText());
+                boolArray[i][j] = strToBool(textFieldsArr.get(i).get(j).getText());
             }
         }
         return boolArray;
@@ -96,15 +101,16 @@ public class TheMatrixReload {
         for (int i = 0; i < nodesCount; i++) {
             for (int j = 0; j < nodesCount; j++) {
                 boolArray[i][j] = preset[i][j];
-                refreshMatrix();
+
             }
         }
+        refreshMatrix();
     }
 
     void refreshMatrix(){
         for (int i = 0; i < nodesCount; i++) {
             for (int j = 0; j < nodesCount; j++) {
-                textFieldsArr.get(i+j).setText(boolToStr(boolArray[i][j]));
+                textFieldsArr.get(i).get(j).setText(boolToStr(boolArray[i][j]));
             }
         }
     }
