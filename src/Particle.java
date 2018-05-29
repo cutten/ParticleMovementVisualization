@@ -69,4 +69,10 @@ public class Particle {
             pane.getChildren().add(partical);
         }
     }
+
+    void removeChildren(Pane pane) {
+        if (partical != null) {
+            pane.getChildren().remove(partical);
+        }
+    }
 }

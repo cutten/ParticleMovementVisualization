@@ -35,7 +35,13 @@ public class GraphCanvas {
     }
 
     // Удаление графа
-    void reinit() {
+    void clearGraph() {
+        for (PathLine pathLine : lineArr) {
+            pathLine.removeChildren(pane);
+        }
+        for (Node node : nodeArr) {
+            node.removeChildren(pane);
+        }
         lineArr = new ArrayList<>();
         nodeArr = new ArrayList<>();
     }

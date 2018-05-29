@@ -115,6 +115,12 @@ public class Node {
         }
     }
 
+    public void removeChildren(Pane pane) {
+        if (circle != null) {
+            pane.getChildren().remove(circle);
+        }
+    }
+
 
 }
 

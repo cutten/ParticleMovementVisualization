@@ -45,6 +45,12 @@ public class PathLine {
         }
     }
 
+    public void removeChildren(Pane pane) {
+        if (line != null) {
+            pane.getChildren().remove(line);
+        }
+    }
+
     public double getLineWidth() {
         return lineWidth;
     }

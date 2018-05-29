@@ -40,7 +40,7 @@ public class GraphGenerator {
                 return;
             isRunning = true;
 
-            canvas.reinit(); //Сброс текущего графа.
+            canvas.clearGraph(); //Сброс текущего графа.
 
             Node[] nodes = new Node[matrix.length];
 
@@ -225,9 +225,14 @@ public class GraphGenerator {
             double firstX = canvas.getWidth() / 2 - (matrix.length * step) / 8;
             double firstY = canvas.getHeight() / 2 - (matrix.length * step) / 8;
 
-            nodes[0].setCenterX(firstX);
-            nodes[0].setCenterY(firstY);
-            nodes[0].setRadius(step / 10);
+            for (int i = 0; i < nodes.length; i++) {
+                if (nodes[i].getUp() != null || nodes[i].getDown() != null || nodes[i].getLeft() != null || nodes[i].getRight() != null) {
+                    nodes[i].setCenterX(firstX);
+                    nodes[i].setCenterY(firstY);
+                    nodes[i].setRadius(step / 10);
+                    break;
+                }
+            }
 
 
             for (int i = 0; i < nodes.length; i++) {
