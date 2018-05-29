@@ -8,17 +8,30 @@ import javafx.stage.Stage;
 import sun.awt.windows.ThemeReader;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class MainApp extends Application {
 
 
     private static Stage secondaryStage;
     private static GraphCanvas graphCanvas;
-    private static Matrix matrix;
+    private static TheMatrixReload matrix;
     private Parent panel1;
     private Group panel2;
     private Scene primaryScene;
     private Scene secondaryScene;
+    private static boolean[][] matr3 = new boolean[][]{
+            {false, true, false, true, false, false, false, false, false},
+            {true, false, true, false, true, false, false, false, false},
+            {false, true, false, false, false, true, false, false, false},
+            {true, false, false, false, true, false, true, false, false},
+            {false, true, false, true, false, true, false, true, false},
+            {false, false, true, false, true, false, false, false, true},
+            {false, false, false, true, false, false, false, true, false},
+            {false, false, false, false, true, false, true, false, true},
+            {false, false, false, false, false, true, false, true, false}
+    };
+    static boolean[][] test;
 
     public static void main(String[] args) {
         launch(args);
@@ -28,34 +41,21 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        boolean[][] test;
-        boolean[][] matr3 = new boolean[][]{
-                {false, true, false, true, false, false, false, false, false},
-                {true, false, true, false, true, false, false, false, false},
-                {false, true, false, false, false, true, false, false, false},
-                {true, false, false, false, true, false, true, false, false},
-                {false, true, false, true, false, true, false, true, false},
-                {false, false, true, false, true, false, false, false, true},
-                {false, false, false, true, false, false, false, true, false},
-                {false, false, false, false, true, false, true, false, true},
-                {false, false, false, false, false, true, false, true, false}
-        };
+
         // Инициализация окна #1
         createPrimaryStage(primaryStage);
         // Инициализация окна #2
-        TheMatrixReload matrix = new TheMatrixReload(9);
+        matrix = new TheMatrixReload(9);
         matrix.setPreset(matr3);
-        matrix.fillBoolArray();
+        matrix.refreshMatrix();
         test = matrix.getBoolArray();
-
-
 
         boolean[][] matr = new boolean[][]{{false, true, true, false}, {true, false, false, true}, {true, false, false, true}, {false, true, true, false}};
         boolean[][] matr2 = new boolean[][]{{false, true, true, false}, {true, false, false, true}, {true, false, false, false}, {false, true, false, false}};
 
 
         //GraphGenerator.generate(test, graphCanvas);
-        GraphGenerator.generate(matr3, graphCanvas);
+        //GraphGenerator.generate(matr3, graphCanvas);
 
 
 
@@ -87,5 +87,21 @@ public class MainApp extends Application {
         stage.show();
     }
 
+    static void mainGenerate(){
+        matrix.fillBoolArray();
+        boolean flag = true;
+        for (int i = 0; i < 9; i++) {
+            System.out.println(Arrays.toString(matrix.getBoolArray()[i]));
+            for (int j = 0; j < 9; j++) {
+                if (matrix.getBoolArray()[i][j] != matr3[i][j])
+                    flag = false;
+
+            }
+        }
+
+        System.out.println(flag);
+        GraphGenerator.generate(matrix.getBoolArray(),graphCanvas);
+
+    }
 
 }

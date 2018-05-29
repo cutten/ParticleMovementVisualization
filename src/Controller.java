@@ -1,5 +1,7 @@
 import javafx.scene.input.MouseEvent;
 
+import java.awt.*;
+
 public class Controller {
 
     public void openMatrix(MouseEvent mouseEvent) {
@@ -7,6 +9,6 @@ public class Controller {
     }
 
     public void generate(MouseEvent mouseEvent) {
-
+        MainApp.mainGenerate();
     }
 }

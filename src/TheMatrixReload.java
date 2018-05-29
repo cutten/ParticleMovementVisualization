@@ -7,9 +7,10 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TheMatrixReload {
-    private boolean[][] boolArray;
+    private static boolean[][] boolArray;
     private int nodesCount;
     private static Stage stage;
     private Scene scene;
@@ -67,6 +68,8 @@ public class TheMatrixReload {
         
     }
 
+
+
     static void showMatrix(){
         stage.show();
     }
@@ -77,23 +80,28 @@ public class TheMatrixReload {
     }
 
     boolean[][] fillBoolArray(){
+        boolean flag = true;
         for (int i = 0; i < nodesCount; i++) {
             for (int j = 0; j < nodesCount; j++) {
-                boolArray[i][j] = strToBool(textFieldsArr.get(i).get(j).getText());
+                String s = textFieldsArr.get(i).get(j).getText();
+                boolArray[i][j] = strToBool(s);
             }
         }
+
         return boolArray;
     }
 
     boolean strToBool(String string){
         if (string == "0")
             return false;
+        else
         return true;
     }
 
     String boolToStr(boolean b){
         if (!b)
             return "0";
+        else
         return "1";
     }
 
@@ -104,7 +112,9 @@ public class TheMatrixReload {
 
             }
         }
-        refreshMatrix();
+
+
+
     }
 
     void refreshMatrix(){
@@ -114,4 +124,7 @@ public class TheMatrixReload {
             }
         }
     }
+
+
+
 }
