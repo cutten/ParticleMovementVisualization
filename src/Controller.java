@@ -11,4 +11,8 @@ public class Controller {
     public void generate(MouseEvent mouseEvent) {
         MainApp.mainGenerate();
     }
+
+    public void startAnimation(MouseEvent mouseEvent) {
+        MainApp.startAnimation();
+    }
 }

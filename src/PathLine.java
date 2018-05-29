@@ -36,5 +36,15 @@ public class PathLine {
         graphicsContext.fillRect(x, y, lineWidth, lineHeight);
     }
 
+    public double getLineWidth() {
+        return lineWidth;
+    }
 
+    public double getLineHeight() {
+        return lineHeight;
+    }
+
+    public boolean isHorizontal() {
+        return isHorizontal;
+    }
 }

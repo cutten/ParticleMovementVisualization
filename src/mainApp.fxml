@@ -19,14 +19,19 @@
                 </Button>
                 <ComboBox maxWidth="180.0" minWidth="160.0" prefHeight="25.0" prefWidth="160.0" promptText="Правило движения...">
                     <VBox.margin>
-                        <Insets left="20.0" right="20.0" top="10.0" />
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
                     </VBox.margin>
                 </ComboBox>
                 <Button alignment="TOP_CENTER" mnemonicParsing="false" onMouseClicked="#generate" text="Сгенерировать" textAlignment="CENTER">
                     <VBox.margin>
-                        <Insets left="50.0" top="10.0" />
+                        <Insets bottom="10.0" left="50.0" right="50.0" top="70.0" />
                     </VBox.margin>
                 </Button>
+            <Button alignment="TOP_CENTER" mnemonicParsing="false" onMouseClicked="#startAnimation" prefWidth="150.0" text="Запустить анимацию" textAlignment="CENTER">
+               <VBox.margin>
+                  <Insets bottom="25.0" left="25.0" right="25.0" top="10.0" />
+               </VBox.margin>
+            </Button>
             </children>
         </VBox>
         <Separator layoutX="197.0" orientation="VERTICAL" prefHeight="550.0" prefWidth="7.0" rotate="180.0" />

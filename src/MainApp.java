@@ -16,7 +16,7 @@ public class MainApp extends Application {
     private static Stage secondaryStage;
     private static GraphCanvas graphCanvas;
     private static TheMatrixReload matrix;
-    private Parent panel1;
+    private static Parent panel1;
     private Group panel2;
     private Scene primaryScene;
     private Scene secondaryScene;
@@ -91,6 +91,13 @@ public class MainApp extends Application {
         matrix.fillBoolArray();
         GraphGenerator.generate(matrix.getBoolArray(),graphCanvas);
 
+    }
+
+    static void startAnimation(){
+        Particle particle = new Particle(graphCanvas);
+        particle.moveRight();
+        particle.moveDown();
+        particle.moveLeft();
     }
 
 }

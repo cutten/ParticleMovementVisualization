@@ -7,11 +7,13 @@ public class GraphCanvas {
     private Canvas mainCanvas;
     private ArrayList<PathLine> lineArr;
     private ArrayList<Node> nodeArr;
+    private ArrayList<Particle> particleArr;
 
     public GraphCanvas(Parent panel) {
         mainCanvas = (Canvas) panel.lookup("#mainCanvas");
         lineArr = new ArrayList<>();
         nodeArr = new ArrayList<>();
+        particleArr = new ArrayList<>();
     }
 
     public void repaint() {
@@ -22,6 +24,11 @@ public class GraphCanvas {
         for (Node node : nodeArr) {
             node.paint(mainCanvas.getGraphicsContext2D());
         }
+
+//        for (Particle particle:particleArr) {
+//            particle.
+//        }
+
     }
 
     void addNode(Node node) {
@@ -31,6 +38,8 @@ public class GraphCanvas {
     void addPath(PathLine pathline) {
         lineArr.add(pathline);
     }
+
+    void addParticle(Particle particle){particleArr.add(particle);}
 
     void reinit() {
         lineArr = new ArrayList<>();
@@ -53,6 +62,9 @@ public class GraphCanvas {
         return mainCanvas.getHeight();
     }
 
+    public Canvas getMainCanvas() {
+        return mainCanvas;
+    }
 }
 
 
