@@ -1,3 +1,4 @@
+import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -20,6 +21,7 @@ public class MainApp extends Application {
     private Group panel2;
     private Scene primaryScene;
     private Scene secondaryScene;
+    private static SequentialTransition particleMovement;
     private static boolean[][] matr3 = new boolean[][]{
             {false, true, false, true, false, false, false, false, false},
             {true, false, true, false, true, false, false, false, false},
@@ -77,7 +79,7 @@ public class MainApp extends Application {
     }
 
     private void createPrimaryStage(Stage stage) throws IOException {
-        panel1 = FXMLLoader.load(getClass().getResource("mainApp.fxml"));
+        panel1 = FXMLLoader.load(getClass().getResource("mainAppPane.fxml"));
         primaryScene = new Scene(panel1, 800, 530);
         graphCanvas = new GraphCanvas(panel1);
         stage.getIcons().add(new Image("file:iconv2.png"));
@@ -93,11 +95,10 @@ public class MainApp extends Application {
 
     }
 
-    static void startAnimation(){
+    static void startAnimation() throws InterruptedException {
         Particle particle = new Particle(graphCanvas);
-        particle.moveRight();
-        particle.moveDown();
-        particle.moveLeft();
+        particleMovement = new SequentialTransition(particle.moveRight(),particle.moveDown(),particle.moveLeft());
+        particleMovement.play();
     }
 
 }

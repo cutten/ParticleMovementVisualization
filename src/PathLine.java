@@ -1,4 +1,6 @@
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 
 import java.awt.*;
 
@@ -32,8 +34,10 @@ public class PathLine {
         this.var = var;
     }
 
-    void paint(GraphicsContext graphicsContext) {
-        graphicsContext.fillRect(x, y, lineWidth, lineHeight);
+    void paint(Pane pane) {
+        Rectangle line = new Rectangle(x,y,lineWidth,lineHeight);
+        line.setFill(javafx.scene.paint.Color.BLACK);
+        pane.getChildren().add(line);
     }
 
     public double getLineWidth() {

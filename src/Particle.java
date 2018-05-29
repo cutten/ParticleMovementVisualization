@@ -4,8 +4,10 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 
 public class Particle {
@@ -16,17 +18,18 @@ public class Particle {
     private Node firstNode;
     private double pathlineWidth;
     private double pathlineHeight;
-    TranslateTransition transition;
+    private double animDuration;
+    //TranslateTransition transition;
 
     Particle(GraphCanvas graphCanvas){
         this.graphCanvas = graphCanvas;
-        this.transition = new TranslateTransition();
-        transition.setDuration(Duration.seconds(1));
+        this.animDuration = 0.75;
+
 
         lineArr = graphCanvas.getLineArr();
         nodeArr = graphCanvas.getNodeArr();
         firstNode = nodeArr.get(0);
-        partical = new Circle(firstNode.getCenterX(),firstNode.getCenterY(),firstNode.getRadius()/2, Color.GREEN);
+        partical = new Circle(firstNode.getCenterX(),firstNode.getCenterY(),firstNode.getRadius()/1.25, Color.GREEN);
         for (int i = 0; i < lineArr.size(); i++) {
             if (lineArr.get(i).isHorizontal()) {
                 this.pathlineWidth = lineArr.get(i).getLineWidth();
@@ -44,31 +47,39 @@ public class Particle {
         graphCanvas.repaint();
     }
 
-    void moveRight(){
+    TranslateTransition moveRight() throws InterruptedException {
+        TranslateTransition transition = new TranslateTransition();
+        transition.setDuration(Duration.seconds(animDuration));
         transition.setNode(partical);
         transition.setByX(pathlineWidth);
-        transition.play();
+        return transition;
     }
 
-    void moveLeft(){
+    TranslateTransition moveLeft() throws InterruptedException {
+        TranslateTransition transition = new TranslateTransition();
+        transition.setDuration(Duration.seconds(animDuration));
         transition.setNode(partical);
         transition.setByX(-pathlineWidth);
-        transition.play();
+        return transition;
     }
 
-    void moveUp(){
-        transition.setNode(partical);
-        transition.setByY(pathlineHeight);
-        transition.play();
-    }
-
-    void moveDown(){
+    TranslateTransition moveUp() throws InterruptedException {
+        TranslateTransition transition = new TranslateTransition();
+        transition.setDuration(Duration.seconds(animDuration));
         transition.setNode(partical);
         transition.setByY(-pathlineHeight);
-        transition.play();
+        return transition;
     }
 
-//    void paint(GraphicsContext graphicsContext){
-//        graphCanvas.getMainCanvas().
-//    }
+    TranslateTransition moveDown() throws InterruptedException {
+        TranslateTransition transition = new TranslateTransition();
+        transition.setDuration(Duration.seconds(animDuration));
+        transition.setNode(partical);
+        transition.setByY(pathlineHeight);
+        return transition;
+    }
+
+    void paint(Pane pane){
+        pane.getChildren().add(partical);
+    }
 }

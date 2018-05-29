@@ -1,4 +1,7 @@
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 public class Node {
 
@@ -83,8 +86,9 @@ public class Node {
         this.right = right;
     }
 
-    public void paint(GraphicsContext graphicsContext) {
-        graphicsContext.fillOval(centerX - radius, centerY - radius, radius * 2, radius * 2);
+    public void paint(Pane pane) {
+        Circle circle = new Circle(centerX,centerY,radius, Color.BLACK);
+        pane.getChildren().add(circle);
     }
 
 

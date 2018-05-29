@@ -12,7 +12,7 @@ public class Controller {
         MainApp.mainGenerate();
     }
 
-    public void startAnimation(MouseEvent mouseEvent) {
+    public void startAnimation(MouseEvent mouseEvent) throws InterruptedException {
         MainApp.startAnimation();
     }
 }

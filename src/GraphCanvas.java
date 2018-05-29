@@ -1,16 +1,17 @@
 import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 
 public class GraphCanvas {
-    private Canvas mainCanvas;
+    private Pane pane;
     private ArrayList<PathLine> lineArr;
     private ArrayList<Node> nodeArr;
     private ArrayList<Particle> particleArr;
 
     public GraphCanvas(Parent panel) {
-        mainCanvas = (Canvas) panel.lookup("#mainCanvas");
+        pane = (Pane) panel.lookup("#graphPane");
         lineArr = new ArrayList<>();
         nodeArr = new ArrayList<>();
         particleArr = new ArrayList<>();
@@ -19,15 +20,15 @@ public class GraphCanvas {
     public void repaint() {
 
         for (PathLine pathline : lineArr) {
-            pathline.paint(mainCanvas.getGraphicsContext2D());
+            pathline.paint(pane);
         }
         for (Node node : nodeArr) {
-            node.paint(mainCanvas.getGraphicsContext2D());
+            node.paint(pane);
         }
 
-//        for (Particle particle:particleArr) {
-//            particle.
-//        }
+        for (Particle particle:particleArr) {
+            particle.paint(pane);
+        }
 
     }
 
@@ -55,16 +56,14 @@ public class GraphCanvas {
     }
 
     double getWidth() {
-        return mainCanvas.getWidth();
+        return pane.getWidth();
     }
 
     double getHeight() {
-        return mainCanvas.getHeight();
+        return pane.getHeight();
     }
 
-    public Canvas getMainCanvas() {
-        return mainCanvas;
-    }
+
 }
 
 
