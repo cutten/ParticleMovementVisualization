@@ -46,6 +46,13 @@ public class GraphCanvas {
         nodeArr = new ArrayList<>();
     }
 
+    void clearParticle() {
+        for (Particle particle : particleArr) {
+            particle.removeChildren(pane);
+        }
+        particleArr = new ArrayList<>();
+    }
+
     //Добавление вершины графа в массив
     void addNode(Node node) {
         nodeArr.add(node);

@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class MainApp extends Application {
 
-    private static final int nodesCount = 9;
+    //private static final int nodesCount = 9;
     private static Stage secondaryStage;
     private static GraphCanvas graphCanvas;
     private static AdjMatrix matrix;
@@ -33,6 +33,18 @@ public class MainApp extends Application {
             {false, false, false, false, true, false, true, false, true},
             {false, false, false, false, false, true, false, true, false}
     };
+    private static boolean[][] matr4 = new boolean[][]{
+            {false, true, true, false, true, false, false, true, false, false},
+            {true, false, false, false, false, true, false, false, false, false},
+            {true, false, false, true, false, false, true, false, false, false},
+            {false, false, true, false, true, false, false, false, false, false},
+            {true, false, false, true, false, true, false, false, false, false},
+            {false, true, false, false, true, false, false, false, false, false},
+            {false, false, true, false, false, false, false, true, true, false},
+            {true, false, false, false, false, false, true, false, false, true},
+            {false, false, false, false, false, false, true, false, false, true},
+            {false, false, false, false, false, false, false, true, true, false}
+    };
     private static boolean[][] test;
     private static Text errorLabel;
     private static Button okButton;
@@ -42,21 +54,19 @@ public class MainApp extends Application {
     }
 
 
-
     @Override
     public void start(Stage primaryStage) throws IOException {
 
         // Инициализация окна #1
         createPrimaryStage(primaryStage);
         // Инициализация окна #2
-        matrix = new AdjMatrix(nodesCount);
-        matrix.setPreset(matr3);
+        matrix = new AdjMatrix( /*nodesCount*/ 10);
+        matrix.setPreset(matr4);
         matrix.refreshMatrix();
         test = matrix.getBoolArray();
         //displayError("Слишком круто...");
 //        boolean[][] matr = new boolean[][]{{false, true, true, false}, {true, false, false, true}, {true, false, false, true}, {false, true, true, false}};
 //        boolean[][] matr2 = new boolean[][]{{false, true, true, false}, {true, false, false, true}, {true, false, false, false}, {false, true, false, false}};
-
 
 
     }
@@ -79,31 +89,35 @@ public class MainApp extends Application {
 
 
     // Метод - "Оболочка" для вызова метода генерации
-    static void mainGenerate(){
+    static void mainGenerate() {
 
-        if(matrix.fillBoolArray())
-            GraphGenerator.generate(matrix.getBoolArray(),graphCanvas);
-        else
-            displayError("матрица смежности не является графом регулярной сети.");
+//        if (matrix.fillBoolArray())
+//            GraphGenerator.generate(matrix.getBoolArray(), graphCanvas);
+//        else
+//            displayError("матрица смежности не является матрицей регулярной сети.");
+        matrix.fillBoolArray();
+        GraphGenerator.generate(matrix.getBoolArray(), graphCanvas);
+
     }
 
     // Метод - "Оболочка" для запуска анимации
     static void startAnimation() throws InterruptedException {
-        try{
-        Particle particle = new Particle(graphCanvas);
-        particleMovement = new SequentialTransition(particle.moveRight(),particle.moveDown(),particle.moveLeft());
-        particleMovement.play();}
-        catch (IndexOutOfBoundsException e){
+        try {
+            graphCanvas.clearParticle();
+            Particle particle = new Particle(graphCanvas);
+            particleMovement = new SequentialTransition(particle.moveRight(), particle.moveDown(), particle.moveLeft());
+            particleMovement.play();
+        } catch (IndexOutOfBoundsException e) {
             displayError("не на чем показывать анимацию :P");
         }
     }
 
-    static void displayError(String string){
+    static void displayError(String string) {
         okButton.setVisible(true);
         errorLabel.setText("Ошибка: " + string);
     }
 
-    static void hideError(){
+    static void hideError() {
         okButton.setVisible(false);
         errorLabel.setText("");
     }

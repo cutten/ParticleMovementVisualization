@@ -61,6 +61,8 @@ public class GraphGenerator {
 
                 boolean correctMode2 = false;
                 for (int j = 0; j < matrix.length; j++) {
+                    if (j == i)
+                        continue;
                     if (!correctMode2 && missingNodes.contains(j))
                         continue;
                     if (correctMode2 && !missingNodes.contains(j))
@@ -69,6 +71,10 @@ public class GraphGenerator {
                         if (nodes[i].getRight() == null && nodes[i].getDown() == null && nodes[i].getLeft() == null && nodes[i].getUp() == null) {
                             nodes[i].setRight(nodes[j]);
                             nodes[j].setLeft(nodes[i]);
+                            if (!missingNodes.isEmpty()) {
+                                j = 0;
+                                correctMode2 = true;
+                            }
                         } else {
                             Node right = nodes[i].getRight();
                             Node left = nodes[i].getLeft();
@@ -114,6 +120,12 @@ public class GraphGenerator {
                                         nodes[i].setUp(nodes[j]);
                                         nodes[j].setDown(nodes[i]);
                                     }
+                                    flag = true;
+                                }
+                                if (correctMode2 && flag) {
+                                    missingNodes.remove(j);
+                                    i = 0;
+                                    break;
                                 }
                                 continue;
                             }
@@ -137,8 +149,23 @@ public class GraphGenerator {
 
                                 }
                                 if (!flag) {
-                                    nodes[i].setUp(nodes[j]);
-                                    nodes[j].setDown(nodes[i]);
+                                    if (left == null && up == null) {
+                                        missingNodes.add(j);
+                                        continue;
+                                    }
+                                    if (left == null) {
+                                        nodes[i].setLeft(nodes[j]);
+                                        nodes[j].setRight(nodes[i]);
+                                    } else {
+                                        nodes[i].setUp(nodes[j]);
+                                        nodes[j].setDown(nodes[i]);
+                                    }
+                                    flag = true;
+                                }
+                                if (correctMode2 && flag) {
+                                    missingNodes.remove(j);
+                                    i = 0;
+                                    break;
                                 }
                                 continue;
                             }
@@ -146,6 +173,11 @@ public class GraphGenerator {
                             if (right != null) {
                                 nodes[i].setLeft(nodes[j]);
                                 nodes[j].setRight(nodes[i]);
+                                if (correctMode2) {
+                                    missingNodes.remove(j);
+                                    i = 0;
+                                    break;
+                                }
                                 continue;
                             }
 
@@ -169,6 +201,12 @@ public class GraphGenerator {
                                 if (!flag) {
                                     nodes[i].setUp(nodes[j]);
                                     nodes[j].setDown(nodes[i]);
+                                    flag = true;
+                                }
+                                if (correctMode2 && flag) {
+                                    missingNodes.remove(j);
+                                    i = 0;
+                                    break;
                                 }
                                 continue;
                             }
@@ -204,12 +242,18 @@ public class GraphGenerator {
                                 if (!flag) {
                                     nodes[i].setRight(nodes[j]);
                                     nodes[j].setLeft(nodes[i]);
+                                    flag = true;
+                                }
+                                if (correctMode2 && flag) {
+                                    missingNodes.remove(j);
+                                    i = 0;
+                                    break;
                                 }
                             }
 
                         }
                     }
-                    if (j == matrix.length - 1 && !correctMode2 && !missingNodes.isEmpty()) {
+                    if (j == matrix.length - 1 && correctMode && !correctMode2 && !missingNodes.isEmpty()) {
                         correctMode2 = true;
                         j = 0;
                     }
@@ -222,8 +266,8 @@ public class GraphGenerator {
 
             //Расчёт шага и первой позиции. Неоптимален. Хотите лучше, делайте.
             double step = matrix.length * 2 <= 90 ? 100 - matrix.length * 2 : 10;
-            double firstX = canvas.getWidth() / 2 - (matrix.length * step) / 8;
-            double firstY = canvas.getHeight() / 2 - (matrix.length * step) / 8;
+            double firstX = canvas.getWidth() / 2;// - (matrix.length * step) / 8;
+            double firstY = canvas.getHeight() / 2;// - (matrix.length * step) / 8;
 
             for (int i = 0; i < nodes.length; i++) {
                 if (nodes[i].getUp() != null || nodes[i].getDown() != null || nodes[i].getLeft() != null || nodes[i].getRight() != null) {
