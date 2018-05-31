@@ -109,7 +109,11 @@ public class Node {
 
     //Отрисовка
     public void addChildren(Pane pane) {
-        if (circle == null || !pane.getChildren().contains(circle)) {
+        if (circle != null && circle.getRadius() != radius) {
+            pane.getChildren().remove(circle);
+            circle = new Circle(centerX, centerY, radius, Color.BLACK);
+            pane.getChildren().add(circle);
+        } else if (circle == null || !pane.getChildren().contains(circle)) {
             circle = new Circle(centerX, centerY, radius, Color.BLACK);
             pane.getChildren().add(circle);
         }

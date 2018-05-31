@@ -9,6 +9,16 @@ public class GraphCanvas {
     private ArrayList<Node> nodeArr; // Массив вершин
     private ArrayList<Particle> particleArr; // Массив частиц
 
+    //16 left 17 up 18 right 19 down 37 b 36 a
+
+    //Konami
+    private static boolean ok;
+    private static int[] konamiCode = new int[]{17, 17, 19, 19, 16, 18, 16, 18, 37, 36};
+    private static int now;
+
+    private double nodeRadius;
+    private double pathStep;
+
     //Конструктор
     public GraphCanvas(Parent panel) {
         //Инициализация переменных
@@ -25,13 +35,21 @@ public class GraphCanvas {
             pathline.addChildren(pane);
         }
         for (Node node : nodeArr) {
+            if (ok) {
+                double radius = node.getRadius() / 4;
+                node.setRadius(radius);
+            }
             node.addChildren(pane);
         }
 
-        for (Particle particle:particleArr) {
+        for (Particle particle : particleArr) {
             particle.addChildren(pane);
         }
 
+        if (ok) {
+            ok = false;
+            now = 0;
+        }
     }
 
     // Удаление графа
@@ -64,7 +82,9 @@ public class GraphCanvas {
     }
 
     //Добавление частицы в массив
-    void addParticle(Particle particle){particleArr.add(particle);}
+    void addParticle(Particle particle) {
+        particleArr.add(particle);
+    }
 
     //Геттеры и сеттеры
     //
@@ -86,7 +106,34 @@ public class GraphCanvas {
         return pane.getHeight();
     }
 
+    public void setNodeRadius(double nodeRadius) {
+        this.nodeRadius = nodeRadius;
+    }
 
+    public void setPathStep(double pathStep) {
+        this.pathStep = pathStep;
+    }
+
+    public double getNodeRadius() {
+        return nodeRadius;
+    }
+
+    public double getPathStep() {
+        return pathStep;
+    }
+
+    //Konami
+    public static void setKonamiCode(int symbol) {
+        if (!ok) {
+            if (konamiCode[now++] == symbol) {
+                if (now == konamiCode.length) {
+                    ok = true;
+                    System.out.println("Konami code set!");
+                }
+            } else
+                now = 0;
+        }
+    }
 }
 
 

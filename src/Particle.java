@@ -22,7 +22,7 @@ public class Particle {
         lineArr = graphCanvas.getLineArr();
         nodeArr = graphCanvas.getNodeArr();
         firstNode = nodeArr.get(0);
-        pathlineLength = lineArr.get(0).getLength();
+        pathlineLength = graphCanvas.getPathStep();
         graphCanvas.addParticle(this);
         graphCanvas.reAddChildren();
     }
@@ -65,7 +65,7 @@ public class Particle {
 
     void addChildren(Pane pane) {
         if (partical == null && !pane.getChildren().contains(partical)) {
-            partical = new Circle(firstNode.getCenterX(), firstNode.getCenterY(), firstNode.getRadius() / 1.25, Color.GREEN);
+            partical = new Circle(firstNode.getCenterX(), firstNode.getCenterY(), graphCanvas.getNodeRadius() / 3, Color.GREEN);
             pane.getChildren().add(partical);
         }
     }

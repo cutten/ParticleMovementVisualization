@@ -51,22 +51,6 @@ public class PathLine {
         }
     }
 
-    public double getLineWidth() {
-        return lineWidth;
-    }
-
-    public double getLineHeight() {
-        return lineHeight;
-    }
-
-    // Геттер для длинны строки, независимо от ее ориентации
-    public double getLength(){
-        if(lineHeight>lineWidth)
-            return lineHeight;
-        else
-            return lineWidth;
-    }
-
     public boolean isHorizontal() {
         return isHorizontal;
     }
