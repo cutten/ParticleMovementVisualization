@@ -22,16 +22,11 @@ public class Node {
         this.right = null;
     }
 
-    public Node(double x, double y, double radius, int number) {
+    public Node(double x, double y, double radius) {
         //Инициализация переменных
         this.centerX = x;
         this.centerY = y;
         this.radius = radius;
-        this.number = number;
-        this.up = null;
-        this.down = null;
-        this.left = null;
-        this.right = null;
     }
 
     public Node(double x, double y, double radius, int number, Node up, Node down, Node left, Node right) {
@@ -107,11 +102,18 @@ public class Node {
     }
 
 
+    public Circle getCircle() {
+        return circle;
+    }
+
     //Отрисовка
-    public void addChildren(Pane pane) {
-        if (circle == null || !pane.getChildren().contains(circle)) {
+    public void addChildren(GraphCanvas graphCanvas) {
+        if (circle == null || !graphCanvas.getPane().getChildren().contains(circle)) {
             circle = new Circle(centerX, centerY, radius, Color.BLACK);
-            pane.getChildren().add(circle);
+            circle.setFill(null);
+            circle.setStroke(Color.BLACK);
+            graphCanvas.getNodeArr().add(this);
+            graphCanvas.getPane().getChildren().add(circle);
         }
     }
 

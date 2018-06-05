@@ -1,10 +1,12 @@
 import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -48,6 +50,7 @@ public class MainApp extends Application {
     private static boolean[][] test;
     private static Text errorLabel;
     private static Button okButton;
+    private static TextField amountOfNodes;
 
     public static void main(String[] args) {
         launch(args);
@@ -74,11 +77,12 @@ public class MainApp extends Application {
 
     // Метод создания главного окна
     private void createPrimaryStage(Stage stage) throws IOException {
-        panel1 = FXMLLoader.load(getClass().getResource("mainAppPane.fxml"));
+        panel1 = FXMLLoader.load(getClass().getResource("mainAppInfinity.fxml"));
         primaryScene = new Scene(panel1, 800, 530);
         graphCanvas = new GraphCanvas(panel1);
         errorLabel = (Text) panel1.lookup("#errorLabel");
         okButton = (Button) panel1.lookup("#okButton");
+        amountOfNodes = (TextField) panel1.lookup(("#amount"));
         okButton.setVisible(false);
         stage.getIcons().add(new Image("file:iconv2.png"));
         stage.setTitle("Визуализация движения частиц по регулярным сетям");
@@ -95,8 +99,9 @@ public class MainApp extends Application {
 //            GraphGenerator.generate(matrix.getBoolArray(), graphCanvas);
 //        else
 //            displayError("матрица смежности не является матрицей регулярной сети.");
-        matrix.fillBoolArray();
-        GraphGenerator.generate(matrix.getBoolArray(), graphCanvas);
+//        matrix.fillBoolArray();
+//        GraphGenerator.generate(matrix.getBoolArray(), graphCanvas);
+        CircleGenerator.generate(graphCanvas, Integer.parseInt(amountOfNodes.getText()));
 
     }
 
@@ -105,11 +110,22 @@ public class MainApp extends Application {
         try {
             graphCanvas.clearParticle();
             Particle particle = new Particle(graphCanvas);
-            particleMovement = new SequentialTransition(particle.moveRight(), particle.moveDown(), particle.moveLeft());
+            particleMovement = new SequentialTransition();
+            TranslateTransition t;
+            for (int i = 0; i < graphCanvas.getNodeArr().size(); i++) {
+                if (i == graphCanvas.getNodeArr().size() - 1) {
+                    t = particle.moveToNextNode(graphCanvas.getNodeArr().get(i), graphCanvas.getNodeArr().get(0));
+                    break;
+                }
+                    t = particle.moveToNextNode(graphCanvas.getNodeArr().get(i),graphCanvas.getNodeArr().get(i+1));
+                    particleMovement.getChildren().add(t);
+                }
+
             particleMovement.play();
         } catch (IndexOutOfBoundsException e) {
             displayError("не на чем показывать анимацию :P");
         }
+        //Animatrix.startAnimation(graphCanvas); particle.moveToNextNode(graphCanvas.getNodeArr().get(1)),particle.moveToNextNode(graphCanvas.getNodeArr().get(2)
     }
 
     static void displayError(String string) {

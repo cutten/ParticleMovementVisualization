@@ -21,15 +21,15 @@ public class GraphCanvas {
     //Отрисовка графа
     public void reAddChildren() {
 
-        for (PathLine pathline : lineArr) {
-            pathline.addChildren(pane);
-        }
+//        for (PathLine pathline : lineArr) {
+//            pathline.addChildren(this);
+//        }
         for (Node node : nodeArr) {
-            node.addChildren(pane);
+            node.addChildren(this);
         }
 
         for (Particle particle:particleArr) {
-            particle.addChildren(pane);
+            particle.addChildren(this);
         }
 
     }
@@ -86,7 +86,13 @@ public class GraphCanvas {
         return pane.getHeight();
     }
 
+    public Pane getPane() {
+        return pane;
+    }
 
+    public ArrayList<Particle> getParticleArr() {
+        return particleArr;
+    }
 }
 
 

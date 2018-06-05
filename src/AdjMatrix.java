@@ -49,10 +49,10 @@ public class AdjMatrix {
                 tf.setLayoutX(25 + j * 25);
                 tf.setLayoutY(25 + i * 25);
                 tf.setFont(new Font(12));
-//                if (i==j){
-//                    tf.setEditable(false);
+                if (i==j){
+                  tf.setEditable(false);
 //                    tf.setText("X");
-//                }
+                }
                 textFieldsArr.get(i).add(tf);
                 group.getChildren().add(tf);
             }

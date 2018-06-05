@@ -21,10 +21,10 @@ public class Particle {
         this.animDuration = 0.75;
         lineArr = graphCanvas.getLineArr();
         nodeArr = graphCanvas.getNodeArr();
-        firstNode = nodeArr.get(0);
-        pathlineLength = lineArr.get(0).getLength();
-        graphCanvas.addParticle(this);
-        graphCanvas.reAddChildren();
+        this.firstNode = nodeArr.get(0);
+        //pathlineLength = lineArr.get(0).getLength();
+        addChildren(graphCanvas);
+        
     }
 
     // Движение вправо
@@ -63,10 +63,21 @@ public class Particle {
         return transition;
     }
 
-    void addChildren(Pane pane) {
-        if (partical == null && !pane.getChildren().contains(partical)) {
+    TranslateTransition moveToNextNode(Node originalNode, Node node){
+
+        TranslateTransition transition = new TranslateTransition();
+        transition.setDuration(Duration.seconds(animDuration));
+        transition.setNode(partical);
+        transition.setByX(Math.abs(originalNode.getCenterX() - node.getCenterX()));
+        transition.setByY(Math.abs(originalNode.getCenterY() - node.getCenterY()));
+        return transition;
+    }
+
+    void addChildren(GraphCanvas graphCanvas) {
+        if (partical == null && !graphCanvas.getPane().getChildren().contains(partical)) {
             partical = new Circle(firstNode.getCenterX(), firstNode.getCenterY(), firstNode.getRadius() / 1.25, Color.GREEN);
-            pane.getChildren().add(partical);
+            graphCanvas.getParticleArr().add(this);
+            graphCanvas.getPane().getChildren().add(partical);
         }
     }
 
