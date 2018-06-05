@@ -1,3 +1,4 @@
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 // Метод, контролирующий события в окне, все нажатия кнопок идут через него.
@@ -20,4 +21,12 @@ public class Controller {
     public void hideError(MouseEvent mouseEvent) {
         MainApp.hideError();
     }
+
+    public void paneClicked(MouseEvent mouseEvent) {
+    }
+
+    public void keyPressed(KeyEvent keyEvent) {
+        GraphCanvas.setKonamiCode(keyEvent.getCode().ordinal());
+    }
+
 }

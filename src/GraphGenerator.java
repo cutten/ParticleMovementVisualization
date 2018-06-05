@@ -88,7 +88,7 @@ public class GraphGenerator {
 
                                     if (k == i || k == right.getNumber() || k == j)
                                         continue;
-                                    if (matrix[right.getNumber()][k] && matrix[k][right.getNumber()] && matrix[k][j] && matrix[j][k]) {
+                                    if ((matrix[right.getNumber()][k] || matrix[k][right.getNumber()]) && (matrix[k][j] || matrix[j][k])) {
                                         if (nodes[k] == right.getUp()) {
                                             nodes[i].setUp(nodes[j]);
                                             nodes[j].setDown(nodes[i]);
@@ -136,7 +136,7 @@ public class GraphGenerator {
 
                                     if (k == i || k == right.getNumber() || k == j)
                                         continue;
-                                    if (matrix[right.getNumber()][k] && matrix[k][right.getNumber()] && matrix[k][j] && matrix[j][k]) {
+                                    if ((matrix[right.getNumber()][k] || matrix[k][right.getNumber()]) && (matrix[k][j] || matrix[j][k])) {
                                         nodes[i].setUp(nodes[j]);
                                         nodes[right.getNumber()].setUp(nodes[k]);
                                         nodes[j].setDown(nodes[i]);
@@ -187,7 +187,7 @@ public class GraphGenerator {
 
                                     if (k == i || k == down.getNumber() || k == j)
                                         continue;
-                                    if (matrix[down.getNumber()][k] && matrix[k][down.getNumber()] && matrix[k][j] && matrix[j][k]) {
+                                    if ((matrix[down.getNumber()][k] || matrix[k][down.getNumber()]) && (matrix[k][j] || matrix[j][k])) {
                                         nodes[i].setRight(nodes[j]);
                                         nodes[down.getNumber()].setRight(nodes[k]);
                                         nodes[j].setLeft(nodes[i]);
@@ -217,7 +217,7 @@ public class GraphGenerator {
 
                                     if (k == i || k == up.getNumber() || k == j)
                                         continue;
-                                    if (matrix[up.getNumber()][k] && matrix[k][up.getNumber()] && matrix[k][j] && matrix[j][k]) {
+                                    if ((matrix[up.getNumber()][k] || matrix[k][up.getNumber()]) && (matrix[k][j] || matrix[j][k])) {
                                         nodes[i].setRight(nodes[j]);
                                         nodes[up.getNumber()].setRight(nodes[k]);
                                         nodes[j].setLeft(nodes[i]);
@@ -227,7 +227,7 @@ public class GraphGenerator {
                                         flag = true;
                                         break;
                                     }
-                                    if (matrix[left.getNumber()][k] && matrix[k][left.getNumber()] && matrix[k][j] && matrix[j][k]) {
+                                    if ((matrix[left.getNumber()][k] || matrix[k][left.getNumber()]) && (matrix[k][j] || matrix[j][k])) {
                                         nodes[i].setDown(nodes[j]);
                                         nodes[left.getNumber()].setDown(nodes[k]);
                                         nodes[j].setUp(nodes[i]);
@@ -268,6 +268,9 @@ public class GraphGenerator {
             double step = matrix.length * 2 <= 90 ? 100 - matrix.length * 2 : 10;
             double firstX = canvas.getWidth() / 2;// - (matrix.length * step) / 8;
             double firstY = canvas.getHeight() / 2;// - (matrix.length * step) / 8;
+
+            canvas.setNodeRadius(step / 10);
+            canvas.setPathStep(step);
 
             for (int i = 0; i < nodes.length; i++) {
                 if (nodes[i].getUp() != null || nodes[i].getDown() != null || nodes[i].getLeft() != null || nodes[i].getRight() != null) {
