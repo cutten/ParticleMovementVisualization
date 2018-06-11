@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public class GraphCanvas {
     private Pane pane; // Полотно, на котором отрисовывается граф
-    private ArrayList<PathLine> lineArr; // Массив соединяющих линий
     private ArrayList<Node> nodeArr; // Массив вершин
     private ArrayList<Particle> particleArr; // Массив частиц
 
@@ -13,36 +12,38 @@ public class GraphCanvas {
     public GraphCanvas(Parent panel) {
         //Инициализация переменных
         pane = (Pane) panel.lookup("#graphPane");
-        lineArr = new ArrayList<>();
         nodeArr = new ArrayList<>();
         particleArr = new ArrayList<>();
     }
 
     //Отрисовка графа
     public void reAddChildren() {
-
-//        for (PathLine pathline : lineArr) {
-//            pathline.addChildren(this);
 //        }
-        for (Node node : nodeArr) {
-            node.addChildren(this);
+        for (int i = 0; i < nodeArr.size(); i++) {
+            nodeArr.get(i).addChildren(pane);
+
+
+
         }
 
         for (Particle particle:particleArr) {
-            particle.addChildren(this);
+            particle.addChildren(pane);
         }
 
     }
 
+    void playAll(boolean play) {
+        for (Particle particle : particleArr) {
+            particle.playAnim(play);
+        }
+    }
+
     // Удаление графа
     void clearGraph() {
-        for (PathLine pathLine : lineArr) {
-            pathLine.removeChildren(pane);
-        }
+
         for (Node node : nodeArr) {
             node.removeChildren(pane);
         }
-        lineArr = new ArrayList<>();
         nodeArr = new ArrayList<>();
     }
 
@@ -58,25 +59,17 @@ public class GraphCanvas {
         nodeArr.add(node);
     }
 
-    //Добавление соединяющие линии в массив
-    void addPath(PathLine pathline) {
-        lineArr.add(pathline);
+    void addParticle(Particle particle) {
+        particleArr.add(particle);
     }
 
-    //Добавление частицы в массив
-    void addParticle(Particle particle){particleArr.add(particle);}
 
     //Геттеры и сеттеры
-    //
-    //
-    //
-    public ArrayList<PathLine> getLineArr() {
-        return lineArr;
-    }
 
     public ArrayList<Node> getNodeArr() {
         return nodeArr;
     }
+
 
     double getWidth() {
         return pane.getWidth();
@@ -84,10 +77,6 @@ public class GraphCanvas {
 
     double getHeight() {
         return pane.getHeight();
-    }
-
-    public Pane getPane() {
-        return pane;
     }
 
     public ArrayList<Particle> getParticleArr() {

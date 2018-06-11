@@ -1,6 +1,7 @@
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 
 public class Node {
 
@@ -9,7 +10,8 @@ public class Node {
     private int number;
     private Node up, down, left, right;
     private Circle circle;
-
+    private Text text;
+    private Particle currParticle;
 
     public Node(int number) {
         this.centerX = -1;
@@ -20,6 +22,7 @@ public class Node {
         this.down = null;
         this.left = null;
         this.right = null;
+        currParticle = null;
     }
 
     public Node(double x, double y, double radius) {
@@ -27,18 +30,7 @@ public class Node {
         this.centerX = x;
         this.centerY = y;
         this.radius = radius;
-    }
-
-    public Node(double x, double y, double radius, int number, Node up, Node down, Node left, Node right) {
-        //Инициализация переменных
-        this.centerX = x;
-        this.centerY = y;
-        this.radius = radius;
-        this.number = number;
-        this.up = up;
-        this.down = down;
-        this.left = left;
-        this.right = right;
+        currParticle = null;
     }
 
     public double getCenterX() {
@@ -67,6 +59,10 @@ public class Node {
 
     public int getNumber() {
         return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public Node getUp() {
@@ -102,24 +98,34 @@ public class Node {
     }
 
 
-    public Circle getCircle() {
-        return circle;
+    public Particle getCurrParticle() {
+        return currParticle;
+    }
+
+    public void setCurrParticle(Particle currParticle) {
+        this.currParticle = currParticle;
     }
 
     //Отрисовка
-    public void addChildren(GraphCanvas graphCanvas) {
-        if (circle == null || !graphCanvas.getPane().getChildren().contains(circle)) {
+    public void addChildren(Pane pane) {
+        if (circle == null || !pane.getChildren().contains(circle)) {
             circle = new Circle(centerX, centerY, radius, Color.BLACK);
             circle.setFill(null);
             circle.setStroke(Color.BLACK);
-            graphCanvas.getNodeArr().add(this);
-            graphCanvas.getPane().getChildren().add(circle);
+            if (number != 0)
+                text = new Text(centerX - radius / 2, centerY + radius / 3, "" + number);
+            else
+                text = new Text(centerX - radius / 2, centerY + radius / 3, "");
+
+            pane.getChildren().add(circle);
+            pane.getChildren().add(text);
         }
     }
 
     public void removeChildren(Pane pane) {
         if (circle != null) {
             pane.getChildren().remove(circle);
+            pane.getChildren().remove(text);
         }
     }
 

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ParticleMovementVisualization:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ParticleMovementVisualization_jar</output-path>
+    <root id="archive" name="ParticleMovementVisualization.jar">
+      <element id="module-output" name="ParticleMovementVisualization" />
+    </root>
+  </artifact>
+</component>
